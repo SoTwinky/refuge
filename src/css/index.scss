@@ -1,0 +1,15 @@
+@import "./settings";
+
+@import "./_core/header";
+@import "./_core/accroche";
+@import "./_core/layout.scss";
+@import "_core/navigation";
+@import "./components/logo";
+@import "./components/filter";
+@import "./components/list";
+@import "./components/TPL";
+@import "components/pets";
+@import "./pages/news";
+@import "./components/article";
+@import "../font-awesome/css/all.css";
+

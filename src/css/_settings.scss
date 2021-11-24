@@ -1,0 +1,84 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+
+@mixin fas {
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+@mixin ext {
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+    }
+}
+
+@mixin tr {
+    transition: all 0.3s;
+}
+
+@mixin w100 {
+    left: #{calc(50% - 50vw)};
+    right: #{calc(50% - 50vw)};
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+$font-1: "Poppins", sans-serif;
+
+$liste_nb: 5;
+$desktop: 1170px;
+
+$color-1: #61dafb;
+$color-2: #f7f7f7;
+$color-3: #282c34;
+$color-4: rgb(32, 35, 42);
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: $font-1;
+    overflow-x: hidden;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: $color-3;
+    cursor: pointer;
+}
+
+a:visited {
+    color: $color-3;
+}
+
+h1 {
+    margin: 0 0 2rem;
+}
+
+h2 {
+    margin: 0 0 2rem;
+}
+
+h3 {
+    margin: 0 0 1rem;
+}

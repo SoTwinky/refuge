@@ -1,0 +1,162 @@
+
+[class*="liste_"] {
+    padding: 0;
+
+    .item {
+        position: relative;
+        margin-bottom: 35px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+        background: #fff;
+        overflow: hidden;
+        z-index: 0;
+
+        &:hover, &:focus, &:active {
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+
+            .visuel {
+                &::before {
+                    opacity: 1;
+                }
+
+                img {
+                    transform: scale(1.02);
+                }
+            }
+        }
+
+        .visuel {
+            position: relative;
+            overflow: hidden;
+            @include tr;
+
+            &::before {
+                content: '\f1b0';
+                @include fas;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.25);
+                z-index: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                @include tr;
+            }
+
+            img {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                @include tr;
+            }
+        }
+
+        .itemInfo {
+            padding: 15px 20px 25px;
+            box-sizing: border-box;
+
+            a {
+                @include ext;
+            }
+        }
+    }
+}
+
+.liste_4 {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+
+    .item {
+        flex: #{"0 0 calc((100% / 4) - 20px)"};
+        margin-left: ((4 * 20px) / (4 - 1));
+
+        &:nth-child(4n+1) {
+            margin-left: 0;
+        }
+
+        .icone {
+            &::before {
+                position: absolute;
+                top: 10px;
+                right: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                padding: 5px 8px;
+                box-sizing: border-box;
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+                background: #fff;
+                @include fas;
+                z-index: 1;
+            }
+
+            &.male::before {
+                content: '\f222';
+                color: #0000ffb8;
+            }
+
+            &.female::before {
+                content: '\f221';
+                color: #ff0000b5;
+            }
+        }
+    }
+}
+
+.count {
+    display: block;
+    font-size: 3rem;
+}
+
+.filter-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1.5rem 3rem;
+    border-radius: 15px;
+    background: $color-3;
+    color: $color-1;
+    box-shadow: 0 2px 2px rgba(51, 51, 51, 0.3);
+
+    & > div {
+        flex: 0 0 #{calc(100% / 3)};
+    }
+
+    ul {
+        padding: 0.5rem 2rem;
+
+        input[type="radio"] {
+            transform: translate(-5px, 1px);
+        }
+    }
+}
+
+.cancel {
+    margin: 20px auto 30px;
+    width: 100%;
+
+    h5 {
+        border: 1px $color-3 solid;
+        text-align: center;
+        width: 180px;
+        margin: 0 auto;
+        border-radius: 10px;
+        transition: 0.3s;
+        cursor: pointer;
+
+        &:hover {
+            background: $color-1;
+            border-color: $color-1;
+        }
+    }
+}
+
+

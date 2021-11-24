@@ -1,0 +1,27 @@
+.logo {
+    display: flex;
+    background: url("../../data/main.jpg") center/cover;
+    height: 60px;
+    width: 200px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px 0 rgba(51, 51, 51, 0.5);
+
+    a {
+        display: flex;
+        align-items: center;
+
+        h3 {
+            color: $color-2;
+            letter-spacing: 1px;
+        }
+
+        img {
+            height: 30px;
+            width: 30px;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+    }
+}

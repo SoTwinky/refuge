@@ -1,0 +1,29 @@
+.accroche {
+    min-height: 450px;
+    display: flex;
+    align-items: center;
+
+    .bloc {
+        position: relative;
+        display: inline-block;
+        padding: 2rem;
+        box-sizing: border-box;
+        color: #fff;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: #{calc(50% - 50vw)};
+            background: rgba(0,0,0,0.75);
+            z-index: 0;
+        }
+
+        .texte {
+            position: relative;
+            z-index: 1;
+        }
+    }
+}

@@ -1,0 +1,40 @@
+$liste_nb: 5;
+
+@mixin liste_($liste_nb, $padding: 30px) {
+    @while $liste_nb > 0 {
+        .liste_#{$liste_nb} {
+            display: flex;
+            flex-wrap: wrap;
+
+            .item {
+
+                @if $liste_nb = 1 {
+                    flex: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .visuel {
+                        max-width: 300px;
+                        width: 100%;
+                    }
+
+                    .itemInfo {
+                        flex: #{"0 0 calc(100% - 325px)"};
+                        margin-left: 25px;
+                    }
+                }
+
+                @if $liste_nb > 1 {
+                    flex: #{"0 0 calc((100% / ${liste_nb}) - ${padding})"};
+                    margin-left: (($liste_nb * $padding) / ($liste_nb - 1));
+
+                    &:nth-child(#{$liste_nb}n+1) {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+        @include liste_($liste_nb - 1);
+    }
+}
+@include liste_($liste_nb);
