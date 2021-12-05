@@ -1,15 +1,17 @@
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 10;
-    padding: 0 2rem;
     background: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+    .logo {
+        h1, h3 {
+            margin: 0;
+        }
+    }
 
     .navigation {
         display: flex;
@@ -34,9 +36,34 @@ header {
         }
     }
 
-    &.menu {
+    [id*="menu"] {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        padding: 0 2rem;
+        box-sizing: border-box;
+    }
+
+    .navigation {
+        a {
+            margin: 25px 5px;
+        }
+    }
+
+    #menuSite.refuge {
+        background: #404040;
+        box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.5);
+
+        .logo {
+            height: 40px;
+        }
+
         .navigation {
-            margin: 26px 0;
+            a {
+                margin: 10px 5px;
+                color: #fff;
+            }
         }
     }
 
@@ -44,6 +71,5 @@ header {
         flex: 0 0 100%;
         display: flex;
         justify-content: space-between;
-        background: #0a0a0a;
     }
 }

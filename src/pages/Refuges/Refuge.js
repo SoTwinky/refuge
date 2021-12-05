@@ -80,6 +80,7 @@ $( document ).ready(function() {
     if ($("#document").hasClass('menuRefuge')) {
         $("#bandeauHaut").removeClass('menu');
         $("#menuRefuge").appendTo($("#bandeauHaut"));
+        $("#menuSite").addClass('refuge');
     }
 });
 

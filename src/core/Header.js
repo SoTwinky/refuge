@@ -6,8 +6,10 @@ import $ from 'jquery';
 const Header = () => {
     return (
         <header id="bandeauHaut" className="menu">
-            <Logo/>
-            <Navigation/>
+            <div id="menuSite">
+                <Logo/>
+                <Navigation/>
+            </div>
         </header>
     );
 };
