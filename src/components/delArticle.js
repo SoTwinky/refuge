@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from "axios";
 
-const DelArticle = ({article}) => {
+const DelArticle = ({comment}) => {
 
         const handleDelete = () => {
             axios
-                .delete("http://localhost:3003/articles/" + article.id).then(() => window.location.reload())
+                .delete("http://localhost:3003/comments/" + comment.id).then(() => window.location.reload())
         };
 
         return <button onClick={() => {

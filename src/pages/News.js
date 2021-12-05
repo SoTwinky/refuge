@@ -1,22 +1,39 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import Article from "../components/Article";
 import Header from "../core/Header";
+import firebase from "../utils/firebaseConfig";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
-const News = () => {
-    const [newsData, setNewsData] = useState([]);
-    const [author, setAuthor] = useState("");
+const Comments = ({id}) => {
+    const [commentsData, setCommentsData] = useState([]);
     const [content, setContent] = useState("");
     const [error, setError] = useState(false);
+    const [isSignedIn, setIsSignedIn] = useState(false);
 
     useEffect(() => {
-        getData();
+        getComments();
+        firebase.auth().onAuthStateChanged((user) => {
+            setIsSignedIn(!!user);
+        });
     }, []);
 
-    const getData = () => {
+    const uiConfig = {
+        signInFlow: "popup",
+        signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        ],
+        callbacks: {
+            signInSuccess: () => false,
+        },
+    };
+
+    const getComments = () => {
         axios
-            .get('http://localhost:3003/dogs')
-            .then((res) => setNewsData(res.data))
+            .get('http://localhost:3003/comments')
+            .then((res) => setCommentsData(res.data))
     };
 
     const handleSubmit = (e) => {
@@ -26,14 +43,14 @@ const News = () => {
             setError(true);
         } else {
             axios
-                .post('http://localhost:3003/articles', {
-                    author,
+                .post('http://localhost:3003/comments', {
+                    author: firebase.auth().currentUser.displayName,
                     content,
-                    date: Date.now()
+                    date: Date.now(),
+                    pet: id
                 }).then(() => {
-                setAuthor("");
                 setContent("");
-
+                getComments();
             });
 
             setError(false);
@@ -45,23 +62,37 @@ const News = () => {
             <Header/>
             <div className="innerCenter">
                 <h1>News</h1>
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <input type="text" placeholder="Nom" onChange={(e) => setAuthor(e.target.value)} value={author}/>
-                    <textarea style={{ border: error ? "1px solid red" : "1px solid #61dafb" }} placeholder="Message" id="" cols="30" rows="10" onChange={(e) => setContent(e.target.value)} value={content}></textarea>
-                    {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
-                    <input type="submit" value="Envoyer"/>
-                </form>
+                {isSignedIn
+                    ?
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <input type="text" placeholder="Nom" disabled="disabled" value={firebase.auth().currentUser.displayName}/>
+                        <textarea style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Message"
+                                  id="" cols="30" rows="10" onChange={(e) => setContent(e.target.value)}
+                                  value={content}></textarea>
+                        {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
+                        <input type="submit" value="Envoyer"/>
+                    </form>
+                    :
+                    <StyledFirebaseAuth
+                        uiConfig={uiConfig}
+                        firebaseAuth={firebase.auth()}
+                    />
+                }
+                    <ul>
+                        {
+                            commentsData
+                                .filter((comment) => (id === comment.pet))
+                                .sort((a, b) => b.date - a.date)
+                                .map((comment) => (
+                                    <Article key={comment.name} comment={comment} idPet={id}/>
+                                ))
+                        }
 
-                <ul>
-                    {newsData
-                        .sort((a, b) => b.age - a.age)
-                        .map((article) => (
-                            <Article key={article.name} article={article}/>
-                        ))}
-                </ul>
+                    </ul>
+
             </div>
         </div>
     );
 };
 
-export default News;
+export default Comments;
