@@ -8,7 +8,7 @@ import Pet_Item from "../../components/Pet_Item";
 import $ from "jquery";
 
 const Refuge = () => {
-    const {url} = useParams();
+    const {url, niv} = useParams();
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const Refuge = () => {
     return (
         <div id="document" className="interne menuRefuge">
             <Header/>
-            <HeaderRefuge/>
+            <HeaderRefuge url={url}/>
             <div id="contenu">
                 <div className="accroche" style={{backgroundImage: `url(${data.map(data => (data.picture))})`}}>
                     <div className="innerCenter">

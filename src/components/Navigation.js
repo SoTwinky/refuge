@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Redirect} from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import firebase from "../utils/firebaseConfig";
 
 const Navigation = () => {
@@ -25,29 +25,39 @@ const Navigation = () => {
     }, []);
 
     return (
-        <div className="navigation">
-            <NavLink exact to="/refuges" activeClassName="nav-active">
-                Tous les refuges
-            </NavLink>
-            <NavLink exact to="/pets" activeClassName="nav-active">
-                Tous les chiens
-            </NavLink>
-            <NavLink exact to="/news" activeClassName="nav-active">
-                Le projet
-            </NavLink>
-            <NavLink exact to="/about" activeClassName="nav-active">
-                Nous soutenir
-            </NavLink>
-            {isSignedIn ? (
-                <NavLink exact to="/profil" activeClassName="nav-active">
-                    <span>{firebase.auth().currentUser.displayName}</span>
+        <ul className="navigation">
+            <li>
+                <NavLink exact to="/refuges" activeClassName="nav-active">
+                    Découvrir les refuges
                 </NavLink>
-            ) : (
-                <NavLink exact to="/login" activeClassName="nav-active">
-                    <span>Me connecter</span>
+            </li>
+            <li>
+                <NavLink exact to="/pets" activeClassName="nav-active">
+                    Trouver votre animal
                 </NavLink>
-            )}
-        </div>
+            </li>
+            <li>
+                <NavLink exact to="/news" activeClassName="nav-active">
+                    La fondation
+                </NavLink>
+            </li>
+            <li>
+                <NavLink exact to="/about" activeClassName="nav-active">
+                    Nous soutenir
+                </NavLink>
+            </li>
+            <li>
+                {isSignedIn ? (
+                    <NavLink exact to="/profil" className="profil" activeClassName="nav-active">
+                        <span>{firebase.auth().currentUser.displayName}</span>
+                    </NavLink>
+                ) : (
+                    <NavLink exact to="/login" className="profil" activeClassName="nav-active">
+                        <span>Me connecter</span>
+                    </NavLink>
+                )}
+            </li>
+        </ul>
     );
 };
 

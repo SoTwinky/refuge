@@ -1,0 +1,17 @@
+.navigation {
+    #menuSite.refuge & {
+        margin-right: -2rem;
+    }
+}
+
+.sousMenu {
+    display: none;
+    position: absolute;
+    top: #{calc(100% + 5px)};
+    background: #fff;
+    max-width: 1170px;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}

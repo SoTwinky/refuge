@@ -1,7 +1,8 @@
 .accroche {
+    position: relative;
+
     min-height: 450px;
-    display: flex;
-    align-items: center;
+    overflow: hidden;
 
     .bloc {
         position: relative;
@@ -24,6 +25,34 @@
         .texte {
             position: relative;
             z-index: 1;
+        }
+    }
+
+    &.refuge {
+        .slick-slider {
+            max-width: 450px;
+
+            .slick-list {
+                position: relative;
+                height: 450px;
+                width: 450px;
+                overflow: hidden;
+            }
+
+            .slick-track {
+                display: flex;
+            }
+
+            .slick-arrow, .slick-dots {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+        }
+        .image {
+            position: absolute;
+            top: 0;
+            right: 0;
         }
     }
 }

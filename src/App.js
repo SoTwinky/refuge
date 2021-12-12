@@ -46,6 +46,9 @@ const App = () => {
                 <Route exact path="/refuge/:url">
                     <Refuge/>
                 </Route>
+                <Route exact path="/refuge/:url/:niv">
+                    <Refuge/>
+                </Route>
                 <Route exact path="/pet/:_id">
                     <Pet/>
                 </Route>

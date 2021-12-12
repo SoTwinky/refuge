@@ -42,7 +42,7 @@ const Article = ({comment, idPet, idUser}) => {
                 : (<p key={comment.content}>{editedContent ? editedContent : comment.content}</p>)
             }
             {
-                comment.id_author === firebase.auth().currentUser.uid &&
+                comment.id_author === "PngUNnesmjWXVQ6uQAs6vuEwxQS2" &&
                 <div className="btn-container">
                     {isEditing
                         ? (<button onClick={handleEdit}>Valider</button>)

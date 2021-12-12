@@ -24,6 +24,12 @@ const Login = () => {
         });
     }, []);
 
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+
+        }
+    });
+
     return (
         <div id="document" className="login">
             <Header/>

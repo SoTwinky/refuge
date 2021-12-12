@@ -17,6 +17,12 @@ var cms = {
                 $('#document').removeClass("scrolled");
             }
         });
+    },
+    menu: function () {
+
     }
 };
-$(cms.init);
+$('document').ready(function(){
+    $(cms.init);
+    $(cms.menu);
+});

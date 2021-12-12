@@ -8,7 +8,7 @@ const PetsRefuge = ({refuge}) => {
     useEffect(() => {
 
         axios
-            .get('http://localhost:3003/dogs')
+            .get('http://localhost:3003/pets')
             .then((res) => {
                 setData(res.data);
             });

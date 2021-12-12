@@ -1,33 +1,67 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import $ from 'jquery';
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import firebase from "../../utils/firebaseConfig";
+import axios from "axios";
+import PetsRefuge from "../../components/PetsRefuge";
 
-        var heightBandeau = $("#bandeauHaut").innerHeight();
-        $("#corps").css('margin-top', heightBandeau);
-        $("#bandeauHaut").addClass('sticky');
+const HeaderRefuge = ({url}) => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:3003/refuges?url=' + url)
+            .then((res) => {
+                setData(res.data);
+            });
+    }, []);
 
 
-const HeaderRefuge = () => {
+    const menu = data.map((item) => {
+        return item.menu.map((niv1) => {
+            if (Object.prototype.toString.call(niv1) === '[object Object]') {
+                return (
+                    <li>
+                        <a id="nav-1" href={Object.keys(niv1)} className="withChild aria-toggle" role="button"
+                           aria-controls="sousMenu_9817" aria-expanded="true" activeClassName="nav-active">
+                            <span key={Object.keys(niv1)}>{Object.keys(niv1)}</span>
+                        </a>
+                        <div id="sousMenu_9817" className="sousMenu" aria-labelledby="nav1_9817" aria-hidden="true">
+                            <ul>
+                                {niv1[Object.keys(niv1)].map(
+                                    (niv2, i) => {
+                                        return (
+                                            <li>
+                                                <NavLink exact to={niv2.replace(/ /g,"_")} activeClassName="nav-active">
+                                                    <span key={niv2}>{niv2}</span>
+                                                </NavLink>
+                                            </li>
+                                        )
+                                    })}
+                            </ul>
+                        </div>
+                    </li>
+                )
+            } else {
+                return (
+                    <li>
+                        <NavLink exact to={niv1.toString().replace(/ /g,"_")} activeClassName="nav-active">
+                            <span key={niv1.toString()}>{niv1.toString()}</span>
+                        </NavLink>
+                    </li>
+                )
+            }
+        })
+    });
+
     return (
         <div id="menuRefuge" className="menu">
             <a href="">
                 <img src="" alt="Logo - Refuge"/>
             </a>
-            <div className="navigation">
-                <NavLink exact to="/refuges" activeClassName="nav-active">
-                    Tous les refuges
-                </NavLink>
-                <NavLink exact to="/pets" activeClassName="nav-active">
-                    Tous les chiens
-                </NavLink>
-                <NavLink exact to="/news" activeClassName="nav-active">
-                    Le projet
-                </NavLink>
-                <NavLink exact to="/about" activeClassName="nav-active">
-                    Nous soutenir
-                </NavLink>
-            </div>
+            <ul className="navigation">
+                {menu}
+            </ul>
         </div>
 
 
