@@ -15,7 +15,7 @@ const Pet = () => {
 
     useEffect(() => {
         axios
-            .get('http://localhost:3003/pets?_id=' + _id)
+            .get('http://localhost:4000/api/pet/' + _id)
             .then((res) => {
                 setData(res.data);
             });
@@ -29,32 +29,25 @@ const Pet = () => {
         slidesToScroll: 1
     };
 
-    if (data.images) {
-        const slider = data.map((item) => {
-            return item.images.map((image) => {
-                return (
-                    <div key={image}><img src={image}/></div>
-                )
-            })
-        });
-    }
-
     return (
         <div id="document" className="interne">
             <Header/>
             <div className="accroche refuge">
 
                 <div className="texte innerCenter">
-                    <h1>Nom : {data.map(data => (data.name))}</h1>
-                    <p>Age : {data.map(data => (data.age))} {(data.map(data => (data.age)) > 1 ? 'ans' : 'an')}</p>
+                    <h1>Nom : {data.name}</h1>
+                    <p>Age : {data.age} {(data.age > 1 ? 'ans' : 'an')}</p>
                     <p>Poids
-                        : {data.map(data => (data.weight))} {(data.map(data => (data.weight)) > 1 ? 'kilos' : 'kilo')}</p>
+                        : {data.weight} {(data.weight > 1 ? 'kilos' : 'kilo')}</p>
                 </div>
                 <div className="image">
                     {data.images
                         ?
                         <Slider {...settings}>
-                            {slider}
+                            {data.images.map((image, i) => {
+                                return (
+                                    <div key={image}><img src={image}/></div>
+                                )})}
                         </Slider>
                         :
                         <div key={data.image}><img src={data.image}/></div>

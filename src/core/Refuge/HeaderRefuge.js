@@ -10,7 +10,7 @@ const HeaderRefuge = ({url}) => {
 
     useEffect(() => {
         axios
-            .get('http://localhost:3003/refuges?url=' + url)
+            .get('http://localhost:4000/api/refuge?url=' + url)
             .then((res) => {
                 setData(res.data);
             });

@@ -28,7 +28,7 @@ const Article = ({comment, idPet, idUser}) => {
             pet: idPet
         };
 
-        axios.put("http://localhost:3003/comments/" + comment.id, data).then(() => setIsEditing(false));
+        axios.put("http://localhost:4000/api/comment/" + comment.id, data).then(() => setIsEditing(false));
     };
 
     return (

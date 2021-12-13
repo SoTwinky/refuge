@@ -5,7 +5,7 @@ const DelArticle = ({comment}) => {
 
         const handleDelete = () => {
             axios
-                .delete("http://localhost:3003/comments/" + comment.id).then(() => window.location.reload())
+                .delete("http://localhost:4000/api/comment/" + comment.id).then(() => window.location.reload())
         };
 
         return <button onClick={() => {

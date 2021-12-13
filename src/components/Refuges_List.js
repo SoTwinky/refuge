@@ -10,7 +10,7 @@ const Refuges_List = () => {
 
     useEffect(() => {
         axios
-            .get('http://localhost:3003/refuges')
+            .get('http://localhost:4000/api/refuge')
             .then((res) => {
                 setData(res.data);
             });

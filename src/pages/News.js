@@ -32,7 +32,7 @@ const Comments = ({id}) => {
 
     const getComments = () => {
         axios
-            .get('http://localhost:3003/comments')
+            .get('http://localhost:4000/api/comment')
             .then((res) => setCommentsData(res.data))
     };
 
@@ -43,7 +43,7 @@ const Comments = ({id}) => {
             setError(true);
         } else {
             axios
-                .post('http://localhost:3003/comments', {
+                .post('http://localhost:4000/api/comment', {
                     author: firebase.auth().currentUser.displayName,
                     content,
                     date: Date.now(),
