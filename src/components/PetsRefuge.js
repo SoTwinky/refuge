@@ -16,7 +16,7 @@ const PetsRefuge = ({refuge}) => {
 
     }, []);
 
-    const refugeId = parseInt(refuge.reduce((result, item) => item, 0));
+    const refugeId = parseInt(refuge);
 
     return (
         <div className="TPL_PETS_REFUGE">

@@ -8,28 +8,31 @@ import Pet_Item from "../../components/Pet_Item";
 import $ from "jquery";
 
 const Refuge = () => {
-    const {url, niv} = useParams();
+    const {_id} = useParams();
     const [data, setData] = useState([]);
 
     useEffect(() => {
         axios
-            .get('http://localhost:4000/refuges?url=' + url)
+            .get('http://localhost:4000/api/refuge/' + _id)
             .then((res) => {
                 setData(res.data);
+            })
+            .catch(err => {
+                return err;
             });
     }, []);
 
     return (
         <div id="document" className="interne menuRefuge">
             <Header/>
-            <HeaderRefuge url={url}/>
+            <HeaderRefuge id={_id}/>
             <div id="contenu">
-                <div className="accroche" style={{backgroundImage: `url(${data.map(data => (data.picture))})`}}>
+                <div className="accroche" style={{backgroundImage: `url(${data.picture})`}}>
                     <div className="innerCenter">
                         <div className="bloc">
                             <div className="texte">
-                                <h1>Url : {url}</h1>
-                                <h1>Refuge : {data.map(data => (data.name))}</h1>
+                                <h1>Url : {data.url}</h1>
+                                <h1>Refuge : {data.name}</h1>
                             </div>
                         </div>
                     </div>
@@ -69,7 +72,7 @@ const Refuge = () => {
                             Lorem Ipsum.
                         </p>
                     </div>
-                    <PetsRefuge refuge={data.map(data => (data.id))} key={data.id}/>
+                    <PetsRefuge refuge={data._id} key={data._id}/>
                 </div>
             </div>
         </div>

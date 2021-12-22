@@ -624,5 +624,20 @@
       "id": 8
     }
   ],
-  "users": []
+  "users": [],
+  "pages": [
+    {
+      "Accueil": [
+        "Le refuge",
+        {
+          "Nos animaux": [
+            "Nos chiens",
+            "Nos chats"
+          ]
+        },
+        "Le projet",
+        "L'équipe"
+      ]
+    }
+  ]
 }

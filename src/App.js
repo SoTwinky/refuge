@@ -43,7 +43,7 @@ const App = () => {
                 <Route exact path="/refuges">
                     <Refuges/>
                 </Route>
-                <Route exact path="/refuge/:url">
+                <Route exact path="/refuge/:_id">
                     <Refuge/>
                 </Route>
                 <Route exact path="/refuge/:url/:niv">

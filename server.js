@@ -2,6 +2,7 @@ const express = require('express');
 const userRoutes = require('./routes/user.routes');
 const petRoutes = require('./routes/pet.routes');
 const refugeRoutes = require('./routes/refuge.routes');
+const pageRoutes = require('./routes/page.routes');
 const commentRoutes = require('./routes/comment.routes');
 require('dotenv').config({path: './config/.env'});
 require('./config/db');
@@ -38,6 +39,7 @@ app.use(function(req, res, next) {
 app.use('/api/user', userRoutes);
 app.use('/api/pet', petRoutes);
 app.use('/api/refuge', refugeRoutes);
+app.use('/api/page', pageRoutes);
 app.use('/api/comment', commentRoutes);
 
 //server

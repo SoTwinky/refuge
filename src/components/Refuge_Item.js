@@ -14,7 +14,7 @@ const Refuge_Item = ({refuge}) => {
             </div>
             <div className="itemInfo">
                 <div className={'icone ' + refuge.country} key={refuge.country.id}><span className="visuallyhidden">{refuge.country}</span></div>
-                <a href={"/refuge/" + refuge.url} key={refuge.name.id}>{refuge.name}</a>
+                <a href={"/refuge/" + refuge._id} key={refuge.name.id}>{refuge.name}</a>
                 <div key={refuge.population.id}>Age: {refuge.population}</div>
             </div>
         </li>

@@ -37,6 +37,6 @@ petSchema.statics.login = async function(email, password) {
     throw Error('Email incorrect')
 };
 
-const PetModel = mongoose.model("pet", petSchema);
+const CommentModel = mongoose.model("pet", petSchema);
 
-module.exports = PetModel;
+module.exports = CommentModel;

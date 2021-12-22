@@ -78,7 +78,6 @@ header {
 }
 
 .profil {
-
     &::before {
         content: '\f2bd';
         position: relative;
@@ -88,6 +87,8 @@ header {
         margin-right: 10px;
         z-index: 1;
     }
+
+
 
     &::after {
         content: '';

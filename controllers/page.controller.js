@@ -1,33 +1,30 @@
-const RefugeModel = require('../models/refuge.model');
+const PageModel = require('../models/page.model');
 const ObjectID = require('mongoose').Types.ObjectId;
 
-module.exports.getAllRefuges = async (req, res) => {
-    const refuges = await RefugeModel.find().select();
-    res.status(200).json(refuges);
+module.exports.getAllPages = async (req, res) => {
+    const pages = await PageModel.find().select();
+    res.status(200).json(pages);
 };
 
 
-module.exports.getRefugeInfo = (req, res) => {
-    if (!ObjectID.isValid(req.params.id)) {
-        return res.status(400).send('Refuge inconnu : ' + req.params.id)
-    }
-
-    RefugeModel.findById(req.params.id, (err, docs) => {
+module.exports.getPageInfo = (req, res) => {
+    PageModel.findOne({refuge: req.params.id}, (err, docs) => {
         if (!err) {
             res.send(docs);
+            console.log(req.params)
         } else {
-            console.log('Refuge inconnu' + err);
+            console.log('Page inconnu' + err);
         }
     }).select();
 };
 
-module.exports.updateRefuge = async (req, res) => {
+module.exports.updatePage = async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send('ID inconnu' + req.params.id)
     }
 
     try {
-        await RefugeModel.findOneAndUpdate(
+        await PageModel.findOneAndUpdate(
             {_id: req.params.id},
             {
                 $set: {
@@ -43,13 +40,13 @@ module.exports.updateRefuge = async (req, res) => {
     }
 };
 
-module.exports.deleteRefuge = async (req, res) => {
+module.exports.deletePage = async (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send('ID inconnu' + req.params.id)
     }
 
     try {
-        await RefugeModel.deleteOne({_id: req.params.id})
+        await PageModel.deleteOne({_id: req.params.id})
             .then((docs) => res.status(200).json({message: "Bien supprimé !"}));
     } catch (err) {
         return res.status(500).json({message: err});
