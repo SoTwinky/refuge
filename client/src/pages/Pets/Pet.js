@@ -7,6 +7,7 @@ import axios from "axios";
 import $ from "jquery";
 import News from "../News";
 import Slider from "react-slick";
+import FollowHandler from "../../components/FollowHandler";
 
 const Pet = () => {
     const {_id} = useParams();
@@ -18,7 +19,8 @@ const Pet = () => {
             .get('http://localhost:4000/api/pet/' + _id)
             .then((res) => {
                 setData(res.data);
-            });
+            })
+            .catch(err => {console.log(err)});
     }, []);
 
     var settings = {
@@ -39,6 +41,7 @@ const Pet = () => {
                     <p>Age : {data.age} {(data.age > 1 ? 'ans' : 'an')}</p>
                     <p>Poids
                         : {data.weight} {(data.weight > 1 ? 'kilos' : 'kilo')}</p>
+                    <FollowHandler idToFollow={_id}/>
                 </div>
                 <div className="image">
                     {data.images

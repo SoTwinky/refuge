@@ -36,6 +36,9 @@ const userSchema = new mongoose.Schema(
         },
         likes :{
             type: String
+        },
+        pet_following: {
+            type: [String]
         }
     },
     {

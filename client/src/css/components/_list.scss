@@ -18,10 +18,6 @@
                 &::before {
                     opacity: 1;
                 }
-
-                img {
-                    transform: scale(1.02);
-                }
             }
         }
 
@@ -62,6 +58,11 @@
 
             a {
                 @include ext;
+
+                span {
+                    font-weight: 300;
+                    font-size: 1.1rem;
+                }
             }
         }
     }

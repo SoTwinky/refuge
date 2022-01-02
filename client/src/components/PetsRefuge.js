@@ -12,18 +12,14 @@ const PetsRefuge = ({refuge}) => {
             .then((res) => {
                 setData(res.data);
             });
-
-
     }, []);
-
-    const refugeId = parseInt(refuge);
 
     return (
         <div className="TPL_PETS_REFUGE">
             <h2>Venez les parrainer</h2>
             <ul className="liste_4">
                 {data
-                    .filter((pet) => pet.refuge === refugeId)
+                    .filter((pet) => pet.refuge === refuge)
                     .sort((a, b) => a.age - b.age)
                     .slice(0, 4)
                     .map((pet) => (

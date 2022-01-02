@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import firebase from "../utils/firebaseConfig";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import Header from "../core/Header";
+import Log from "../components/Log";
 
 const Login = () => {
     const [isSignedIn, setIsSignedIn] = useState(false);
@@ -38,6 +39,7 @@ const Login = () => {
                 uiConfig={uiConfig}
                 firebaseAuth={firebase.auth()}
             />
+            <Log/>
         </div>
     );
 };

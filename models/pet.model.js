@@ -11,6 +11,9 @@ const petSchema = new mongoose.Schema(
             maxLength: 55,
             unique: true,
             trim: true
+        },
+        pet_followers: {
+            type: [String]
         }
     },
     {
