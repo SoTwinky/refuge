@@ -4,6 +4,7 @@ import axios from "axios";
 import News from "../News";
 import Slider from "react-slick";
 import FollowHandler from "../../components/FollowHandler";
+import FormAdoption from "../../components/Pet/FormAdoption";
 
 const Pet = () => {
     const {_id} = useParams();
@@ -16,7 +17,7 @@ const Pet = () => {
                 setData(res.data);
             })
             .catch(err => {console.log(err)});
-    }, []);
+    }, [_id]);
 
     var settings = {
         dots: true,
@@ -52,7 +53,8 @@ const Pet = () => {
                 </div>
             </div>
             <div className="innerCenter">
-                <News id={_id}/>
+                <FormAdoption/>
+                <News petId={_id}/>
             </div>
         </div>
     );

@@ -50,14 +50,11 @@ const PetsList = () => {
 
 
     useEffect(() => {
-
         axios
             .get(`http://localhost:4000/api/pet/`)
             .then((res) => {
                 setData(res.data);
             });
-
-
     }, []);
 
     return (

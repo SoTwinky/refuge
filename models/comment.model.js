@@ -2,15 +2,23 @@ const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
-const petSchema = new mongoose.Schema(
+const commentSchema = new mongoose.Schema(
     {
-        name: {
+        author: {
             type: String,
             required: true,
             minLength: 3,
             maxLength: 55,
             unique: true,
             trim: true
+        },
+        content :{
+            type: String,
+            max: 1024,
+        },
+        pet :{
+            type: String,
+            max: 1024,
         }
     },
     {
@@ -18,25 +26,6 @@ const petSchema = new mongoose.Schema(
     }
 );
 
-// play function before save into display: 'block',
-petSchema.pre("save", async function(next) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-});
-
-petSchema.statics.login = async function(email, password) {
-    const pet = await this.findOne({ email });
-    if (pet) {
-        const auth = await bcrypt.compare(password, pet.password);
-        if (auth) {
-            return pet;
-        }
-        throw Error('Mot de passe incorrect');
-    }
-    throw Error('Email incorrect')
-};
-
-const CommentModel = mongoose.model("pet", petSchema);
+const CommentModel = mongoose.model("comment", commentSchema);
 
 module.exports = CommentModel;

@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const refugeController = require('../controllers/refuge.controller');
+const commentController = require('../controllers/comment.controller');
 
 // pet
-router.get('/', refugeController.getAllRefuges);
-
+router.get('/', commentController.getAllComments);
+router.post('/add/', commentController.addComment);
+router.patch('/delete/:id', commentController.delComment);
 
 module.exports = router;

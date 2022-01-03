@@ -1,37 +1,28 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import Article from "../components/Article";
-import firebase from "../utils/firebaseConfig";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import Log from "../components/Log";
+import {UidContext} from "../components/AppContext";
+import {useSelector} from "react-redux";
+import { addComment } from "../actions/comment.actions";
+import { getAllComments } from "../actions/comments.actions";
+import {useDispatch} from "react-redux";
 
-const Comments = ({id}) => {
+const News = ({petId}) => {
+    const uid = useContext(UidContext);
+    const userData = useSelector((state) => state.userReducer);
     const [commentsData, setCommentsData] = useState([]);
     const [content, setContent] = useState("");
     const [error, setError] = useState(false);
-    const [isSignedIn, setIsSignedIn] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         getComments();
-        firebase.auth().onAuthStateChanged((user) => {
-            setIsSignedIn(!!user);
-        });
     }, []);
-
-    const uiConfig = {
-        signInFlow: "popup",
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        ],
-        callbacks: {
-            signInSuccess: () => false,
-        },
-    };
 
     const getComments = () => {
         axios
-            .get('http://localhost:4000/api/comment')
+            .get('http://localhost:4000/api/comment/')
             .then((res) => setCommentsData(res.data))
     };
 
@@ -41,16 +32,11 @@ const Comments = ({id}) => {
         if (content.length > 140) {
             setError(true);
         } else {
-            axios
-                .post('http://localhost:4000/api/comment', {
-                    author: firebase.auth().currentUser.displayName,
-                    content,
-                    date: Date.now(),
-                    pet: id
-                }).then(() => {
-                setContent("");
-                getComments();
-            });
+            dispatch(addComment(userData.pseudo, content, petId))
+                .then(() => {
+                    setContent("");
+                    getComments();
+                });
 
             setError(false);
         }
@@ -59,30 +45,27 @@ const Comments = ({id}) => {
     return (
         <div>
             <h1>News</h1>
-            {isSignedIn
+            {uid
                 ?
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <form onSubmit={(e) => handleSubmit(e)} className="form-container-1">
                     <input type="text" placeholder="Nom" disabled="disabled"
-                           value={firebase.auth().currentUser.displayName}/>
+                           value={userData.pseudo || ''}/>
                     <textarea style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Message"
                               id="" cols="30" rows="10" onChange={(e) => setContent(e.target.value)}
-                              value={content}></textarea>
+                              value={content}/>
                     {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
                     <input type="submit" value="Envoyer"/>
                 </form>
                 :
-                <StyledFirebaseAuth
-                    uiConfig={uiConfig}
-                    firebaseAuth={firebase.auth()}
-                />
+                <Log/>
             }
             <ul>
                 {
                     commentsData
-                        .filter((comment) => (id === comment.pet))
+                        .filter((comment) => (petId === comment.pet))
                         .sort((a, b) => b.date - a.date)
                         .map((comment) => (
-                            <Article key={comment.name} comment={comment} idPet={id}/>
+                            <Article key={comment.name} comment={comment} idPet={petId}/>
                         ))
                 }
 
@@ -91,4 +74,4 @@ const Comments = ({id}) => {
     );
 };
 
-export default Comments;
+export default News;

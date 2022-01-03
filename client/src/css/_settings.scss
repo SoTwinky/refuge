@@ -28,6 +28,12 @@
     right: #{calc(50% - 50vw)};
 }
 
+.flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .visuallyhidden {
     border: 0;
     clip: rect(0 0 0 0);

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import PetItem from "./PetItem";
+import PetItem from "./Pet/PetItem";
 import axios from "axios";
 
 const PetsRefuge = ({refuge}) => {

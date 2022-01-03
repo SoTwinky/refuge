@@ -9,7 +9,7 @@ const Refuge = () => {
     const {_id} = useParams();
     const [data, setData] = useState([]);
 
-    useEffect((_id) => {
+    useEffect(() => {
         axios
             .get('http://localhost:4000/api/refuge/' + _id)
             .then((res) => {
@@ -26,7 +26,7 @@ const Refuge = () => {
             $("#menuRefuge").appendTo($("#bandeauHaut"));
             $("#menuSite").addClass('refuge');
         });
-    }, []);
+    }, [_id]);
 
     return (
         <div>

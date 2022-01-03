@@ -1,4 +1,4 @@
-import RefugesList from "../../components/RefugesList";
+import RefugesList from "../../components/Refuge/RefugesList";
 
 const Pets = () => {
     return (

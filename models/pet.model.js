@@ -12,9 +12,18 @@ const petSchema = new mongoose.Schema(
             unique: true,
             trim: true
         },
+        color: {
+            type: String,
+        },
+        gender: {
+            type: String,
+        },
         pet_followers: {
             type: [String]
-        }
+        },
+        comments: {
+            type: [String]
+        },
     },
     {
         timestamps: true,
