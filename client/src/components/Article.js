@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import DelArticle from "./delArticle";
-import firebase from "../utils/firebaseConfig";
 
 const Article = ({comment, idPet, idUser}) => {
     const [isEditing, setIsEditing] = useState(false);

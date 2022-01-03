@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import Pet_Item from "./Pet_Item";
+import PetItem from "./PetItem";
 import axios from "axios";
 
 const PetsRefuge = ({refuge}) => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-
         axios
             .get('http://localhost:4000/api/pet')
             .then((res) => {
@@ -23,7 +22,7 @@ const PetsRefuge = ({refuge}) => {
                     .sort((a, b) => a.age - b.age)
                     .slice(0, 4)
                     .map((pet) => (
-                        <Pet_Item pet={pet} key={pet.name}/>
+                        <PetItem pet={pet} key={pet.name}/>
                     ))}
             </ul>
         </div>

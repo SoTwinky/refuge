@@ -10,7 +10,6 @@ const commentRoutes = require('./routes/comment.routes');
 const app = express();
 const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const cors = require('cors');
-const cookie = require("js-cookie");
 
 //Cookie
 app.use(cookieParser());
@@ -22,7 +21,9 @@ const corsOptions = {
     'allowedHeaders': ['sessionId', 'Content-Type'],
     'exposedHeaders': ['sessionId'],
     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
+    'preflightContinue': false,
+    'Access-Control-Allow-Origin': process.env.CLIENT_URL,
+    'Access-Control-Allow-Headers': '*'
 };
 app.use(cors(corsOptions));
 

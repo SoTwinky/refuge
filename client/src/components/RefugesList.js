@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
-import Refuge_Item from "./Refuge_Item";
+import RefugeItem from "./RefugeItem";
 
-const Refuges_List = () => {
+const RefugesList = () => {
     const [data, setData] = useState([]);
     const [rangeValue, setRangeValue] = useState(30);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -53,11 +53,11 @@ const Refuges_List = () => {
                     .sort((a, b) => b.id - a.id)
                     .filter((refuge, index) => index < rangeValue)
                     .map((refuge) => (
-                        <Refuge_Item refuge={refuge} key={refuge.name}/>
+                        <RefugeItem refuge={refuge} key={refuge.name}/>
                     ))}
             </ul>
         </div>
     );
 };
 
-export default Refuges_List;
+export default RefugesList;

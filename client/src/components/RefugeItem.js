@@ -1,12 +1,6 @@
 import React from 'react';
 
-const Refuge_Item = ({refuge}) => {
-    const numberFormat = (x) => {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-    };
-
-    const refugeGender = refuge.gender;
-
+const RefugeItem = ({refuge}) => {
     return (
         <li className="item">
             <div className="visuel">
@@ -21,4 +15,4 @@ const Refuge_Item = ({refuge}) => {
     );
 };
 
-export default Refuge_Item;
+export default RefugeItem;

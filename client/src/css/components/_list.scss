@@ -1,4 +1,20 @@
+.liste_1 {
+    .item {
+        display: flex;
 
+        .visuel {
+            max-width: 150px;
+            width: 100%;
+        }
+
+        .itemInfo {
+            span {
+                display: block;
+                margin-bottom: 1rem;
+            }
+        }
+    }
+}
 [class*="liste_"] {
     padding: 0;
 
@@ -50,6 +66,7 @@
                 object-fit: cover;
                 @include tr;
             }
+
         }
 
         .itemInfo {

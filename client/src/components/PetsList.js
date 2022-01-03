@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useState, useRef } from "react";
 import classnames from "classnames";
-import PropTypes from "prop-types";
 import axios from "axios";
-import Pet_Item from "./Pet_Item";
-//(e) => setRangeValueMax(e.target.value)
+import PetItem from "./PetItem";
 
-const Pets_List = () => {
+const PetsList = () => {
     const min = 0;
     const max = 30;
     const [data, setData] = useState([]);
@@ -150,11 +148,11 @@ const Pets_List = () => {
                     .filter((pet) => pet.age >= rangeValueMin)
                     .filter((pet) => pet.age <= rangeValueMax)
                     .map((pet) => (
-                        <Pet_Item pet={pet} key={pet.name}/>
+                        <PetItem pet={pet} key={pet.name}/>
                     ))}
             </ul>
         </div>
     );
 };
 
-export default Pets_List;
+export default PetsList;

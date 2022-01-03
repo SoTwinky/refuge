@@ -1,11 +1,9 @@
-import Header from "../core/Header";
-
-const Pets = () => {
+const Home = () => {
     return (
-        <div id="document" className="accueil">
-            <Header/>
+        <div>
+            <span>Accueil</span>
         </div>
     )
 };
 
-export default Pets;
+export default Home;

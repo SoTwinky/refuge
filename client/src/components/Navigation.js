@@ -1,28 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Redirect} from "react-router-dom";
+import React, {useContext} from 'react';
 import {NavLink} from "react-router-dom";
-import firebase from "../utils/firebaseConfig";
+import {UidContext} from "./AppContext";
+import {useSelector} from "react-redux";
 
 const Navigation = () => {
-    const [isSignedIn, setIsSignedIn] = useState(false);
-
-    const uiConfig = {
-        signInFlow: "popup",
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        ],
-        callbacks: {
-            signInSuccess: () => false,
-        },
-    };
-
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged((user) => {
-            setIsSignedIn(!!user);
-        });
-    }, []);
+    const uid = useContext(UidContext);
+    const userData = useSelector((state) => state.userReducer);
 
     return (
         <ul className="navigation">
@@ -47,9 +30,9 @@ const Navigation = () => {
                 </NavLink>
             </li>
             <li>
-                {isSignedIn ? (
+                {uid ? (
                     <NavLink exact to="/profil" className="profil" activeClassName="nav-active">
-                        <span>{firebase.auth().currentUser.displayName}</span>
+                        <span>{userData.pseudo}</span>
                     </NavLink>
                 ) : (
                     <NavLink exact to="/login" className="profil" activeClassName="nav-active">

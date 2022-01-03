@@ -4,15 +4,12 @@ import SignUpForm from "./SignUpForm";
 
 const Log = ( props ) => {
   const [signUpModal, setSignUpModal] = useState(props.signup);
-  const [signInModal, setSignInModal] = useState(props.signin);
 
   const handleModals = (e) => {
     if (e.target.id === "register") {
-      setSignInModal(false);
       setSignUpModal(true);
     } else if (e.target.id === "login") {
       setSignUpModal(false);
-      setSignInModal(true);
     }
   };
 
@@ -30,13 +27,13 @@ const Log = ( props ) => {
           <li
             onClick={handleModals}
             id="login"
-            className={signInModal ? "active-btn" : null}
+            className={signUpModal ? null : "active-btn"}
           >
             Se connecter
           </li>
         </ul>
         {signUpModal && <SignUpForm />}
-        {signInModal && <SignInForm />}
+        {!signUpModal && <SignInForm />}
       </div>
     </div>
   );

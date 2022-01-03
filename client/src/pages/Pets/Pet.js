@@ -1,10 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import Navigation from "../../components/Navigation";
-import Logo from "../../components/Logo";
-import Header from "../../core/Header";
 import axios from "axios";
-import $ from "jquery";
 import News from "../News";
 import Slider from "react-slick";
 import FollowHandler from "../../components/FollowHandler";
@@ -12,7 +8,6 @@ import FollowHandler from "../../components/FollowHandler";
 const Pet = () => {
     const {_id} = useParams();
     const [data, setData] = useState([]);
-    const slider = '';
 
     useEffect(() => {
         axios
@@ -33,7 +28,6 @@ const Pet = () => {
 
     return (
         <div id="document" className="interne">
-            <Header/>
             <div className="accroche refuge">
 
                 <div className="texte innerCenter">
@@ -49,11 +43,11 @@ const Pet = () => {
                         <Slider {...settings}>
                             {data.images.map((image, i) => {
                                 return (
-                                    <div key={image}><img src={image}/></div>
+                                    <div key={image}><img src={image} alt={'Photo' + data.name}/></div>
                                 )})}
                         </Slider>
                         :
-                        <div key={data.image}><img src={data.image}/></div>
+                        <div key={data.image}><img src={data.image} alt={'Photo' + data.name}/></div>
                     }
                 </div>
             </div>

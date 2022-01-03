@@ -1,22 +1,18 @@
-import React, {useState, useEffect} from "react";
-import firebase from "../utils/firebaseConfig";
-import {Redirect, Route} from "react-router-dom";
-import Header from "../core/Header";
-import Log from "../components/Log";
+import React, {useContext} from "react";
+import {useSelector} from "react-redux";
+import {UidContext} from "../components/AppContext";
+import Logout from "../components/Log/Logout";
 
-const Profil = ({isSignedIn}) => {
-    const [isAdmin, setIsAdmin] = useState(true);
-    const [isSuperAdmin, setIsSuperAdmin] = useState(true);
+const Profil = () => {
+    const userData = useSelector((state) => state.userReducer);
+    const uid = useContext(UidContext);
+
     return (
-        <div id="document" className="profil">
-            <Header/>
-            <div class="innerCenter">
-                <h1>React Crud</h1>
-                <h4>Bonjour {firebase.auth().currentUser.displayName}</h4>
-                {isAdmin && <a href="admin">Administrateur</a>}
-                {isSuperAdmin && <a href="admin">Administrateur</a>}
-                <div onClick={() => firebase.auth().signOut()}>Se déconnecter</div>
-            </div>
+        <div className="innerCenter">
+            <h1>React Crud</h1>
+            <h4>Bonjour {userData.pseudo}</h4>
+            <a href="/admin">Administrateur</a>
+            <Logout uid={uid}/>
         </div>
     );
 };

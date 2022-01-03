@@ -1,6 +1,7 @@
 @import "./settings";
 
 @import "./_core/header";
+@import "./_core/footer";
 @import "./_core/accroche";
 @import "./_core/layout.scss";
 @import "_core/navigation";
@@ -12,4 +13,5 @@
 @import "./pages/news";
 @import "./components/article";
 @import "../font-awesome/css/all.css";
+@import "./components/form-container";
 

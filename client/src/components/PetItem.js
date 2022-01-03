@@ -1,10 +1,6 @@
 import React from 'react';
 
-const Pet_Item = ({pet}) => {
-    const numberFormat = (x) => {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-    };
-
+const PetItem = ({pet}) => {
     return (
         <li className="item">
             <div className="visuel">
@@ -25,4 +21,4 @@ const Pet_Item = ({pet}) => {
     );
 };
 
-export default Pet_Item;
+export default PetItem;

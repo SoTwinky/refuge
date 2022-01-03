@@ -1,9 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
-import $ from 'jquery';
-import {NavLink, useParams} from "react-router-dom";
-import firebase from "../../utils/firebaseConfig";
+import {NavLink} from "react-router-dom";
 import axios from "axios";
-import PetsRefuge from "../../components/PetsRefuge";
 import {CSSTransition} from "react-transition-group";
 
 const HeaderRefuge = ({id}) => {
@@ -13,7 +10,7 @@ const HeaderRefuge = ({id}) => {
     const [menuHeight, setMenuHeight] = useState(null);
     const dropdownRef = useRef(null);
 
-    useEffect(() => {
+    useEffect((id) => {
         axios
             .get('http://localhost:4000/api/page/' + id)
             .then((res) => {
@@ -42,8 +39,7 @@ const HeaderRefuge = ({id}) => {
                     <li>
                         <a id="nav-1" href={Object.keys(niv1).toString().replace(/ /g, "_")}
                            className="withChild aria-toggle" role="button"
-                           aria-controls={"sousMenu_" + i} aria-expanded={ariaExpanded.toString()}
-                           activeClassName="nav-active" onClick={toggle}>
+                           aria-controls={"sousMenu_" + i} aria-expanded={ariaExpanded.toString()} onClick={toggle}>
                             <span key={Object.keys(niv1)}>{Object.keys(niv1)}</span>
                         </a>
                         <CSSTransition in={ariaExpanded} onEnter={calcHeight} timeout={500} classNames="my_node">
@@ -80,12 +76,11 @@ const HeaderRefuge = ({id}) => {
 
     return (
         <div id="menuRefuge" className="menu">
-            <a href="">
+            <a href="/">
                 <img src="" alt="Logo - Refuge"/>
             </a>
             <ul className="navigation">
                 {menu}
-
             </ul>
         </div>
     );

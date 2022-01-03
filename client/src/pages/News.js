@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import Article from "../components/Article";
-import Header from "../core/Header";
 import firebase from "../utils/firebaseConfig";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
@@ -58,39 +57,36 @@ const Comments = ({id}) => {
     };
 
     return (
-        <div id="document" className="news-container">
-            <Header/>
-            <div className="innerCenter">
-                <h1>News</h1>
-                {isSignedIn
-                    ?
-                    <form onSubmit={(e) => handleSubmit(e)}>
-                        <input type="text" placeholder="Nom" disabled="disabled" value={firebase.auth().currentUser.displayName}/>
-                        <textarea style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Message"
-                                  id="" cols="30" rows="10" onChange={(e) => setContent(e.target.value)}
-                                  value={content}></textarea>
-                        {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
-                        <input type="submit" value="Envoyer"/>
-                    </form>
-                    :
-                    <StyledFirebaseAuth
-                        uiConfig={uiConfig}
-                        firebaseAuth={firebase.auth()}
-                    />
+        <div>
+            <h1>News</h1>
+            {isSignedIn
+                ?
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <input type="text" placeholder="Nom" disabled="disabled"
+                           value={firebase.auth().currentUser.displayName}/>
+                    <textarea style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Message"
+                              id="" cols="30" rows="10" onChange={(e) => setContent(e.target.value)}
+                              value={content}></textarea>
+                    {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
+                    <input type="submit" value="Envoyer"/>
+                </form>
+                :
+                <StyledFirebaseAuth
+                    uiConfig={uiConfig}
+                    firebaseAuth={firebase.auth()}
+                />
+            }
+            <ul>
+                {
+                    commentsData
+                        .filter((comment) => (id === comment.pet))
+                        .sort((a, b) => b.date - a.date)
+                        .map((comment) => (
+                            <Article key={comment.name} comment={comment} idPet={id}/>
+                        ))
                 }
-                    <ul>
-                        {
-                            commentsData
-                                .filter((comment) => (id === comment.pet))
-                                .sort((a, b) => b.date - a.date)
-                                .map((comment) => (
-                                    <Article key={comment.name} comment={comment} idPet={id}/>
-                                ))
-                        }
 
-                    </ul>
-
-            </div>
+            </ul>
         </div>
     );
 };

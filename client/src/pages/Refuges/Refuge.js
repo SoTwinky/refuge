@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import axios from "axios";
-import Header from "../../core/Header";
 import HeaderRefuge from "../../core/Refuge/HeaderRefuge";
 import PetsRefuge from "../../components/PetsRefuge";
-import Pet_Item from "../../components/Pet_Item";
 import $ from "jquery";
 
 const Refuge = () => {
     const {_id} = useParams();
     const [data, setData] = useState([]);
 
-    useEffect(() => {
+    useEffect((_id) => {
         axios
             .get('http://localhost:4000/api/refuge/' + _id)
             .then((res) => {
@@ -20,11 +18,18 @@ const Refuge = () => {
             .catch(err => {
                 return err;
             });
+
+
+        $(document).ready(function () {
+            $("#document").addClass('menuRefuge');
+            $("#bandeauHaut").removeClass('menu');
+            $("#menuRefuge").appendTo($("#bandeauHaut"));
+            $("#menuSite").addClass('refuge');
+        });
     }, []);
 
     return (
-        <div id="document" className="interne menuRefuge">
-            <Header/>
+        <div>
             <HeaderRefuge id={_id}/>
             <div id="contenu">
                 <div className="accroche" style={{backgroundImage: `url(${data.picture})`}}>
@@ -78,13 +83,5 @@ const Refuge = () => {
         </div>
     );
 };
-
-$( document ).ready(function() {
-    if ($("#document").hasClass('menuRefuge')) {
-        $("#bandeauHaut").removeClass('menu');
-        $("#menuRefuge").appendTo($("#bandeauHaut"));
-        $("#menuSite").addClass('refuge');
-    }
-});
 
 export default Refuge;
