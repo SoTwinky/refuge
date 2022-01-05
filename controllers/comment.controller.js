@@ -7,10 +7,30 @@ module.exports.getAllComments = async (req, res) => {
     res.status(200).json(comment);
 };
 
+
+module.exports.updateComment = async (req, res) => {
+    if (!ObjectID.isValid(req.params.id))
+        return res.status(400).send("ID unknown : " + req.params.id);
+
+    const updatedRecord = {
+        content: req.body.content,
+    };
+
+    CommentModel.findByIdAndUpdate(
+        req.params.id,
+        { $set: updatedRecord },
+        { new: true, upsert: true},
+        (err, docs) => {
+            if (!err) res.send(docs);
+            else console.log("Update error : " + err);
+        }
+    );
+};
+
 module.exports.addComment = async (req, res) => {
-    const { author, content, pet } = req.body;
+    const { id_author, author, content, pet } = req.body;
     try {
-        const comment = await CommentModel.create({ author, content, pet });
+        const comment = await CommentModel.create({ id_author, author, content, pet });
         res.status(201).json({ comment: comment._id});
 
     } catch (err) {
@@ -19,25 +39,11 @@ module.exports.addComment = async (req, res) => {
 };
 
 module.exports.delComment = async (req, res) => {
-    if (!ObjectID.isValid(req.params.pet) || !ObjectID.isValid(req.body.comments)) {
-        return res.status(400).send('ID inconnu : ' + req.params.pet)
-    }
+    if (!ObjectID.isValid(req.params.id))
+        return res.status(400).send("ID unknown : " + req.params.id);
 
-    try {
-        const promise_1 = CommentModel.findByIdAndUpdate(
-            req.params.pet,
-            {$pull: {pet: req.body.pet}},
-            {new: true, upsert: true});
-
-        const promise_2 = PetModel.findByIdAndUpdate(
-            req.body.comments,
-            {$pull: {comments: req.params.comments}},
-            {new: true, upsert: true});
-
-        await Promise.all([promise_1, promise_2])
-            .then((docs) => res.status(201).json(docs))
-            .catch((err) => res.status(500).json(err));
-    } catch (err) {
-        return res.status(500).json({message: err});
-    }
+    CommentModel.findByIdAndRemove(req.params.id, (err, docs) => {
+        if (!err) res.send(docs);
+        else console.log("Delete error : " + err);
+    });
 };

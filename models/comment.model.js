@@ -4,6 +4,10 @@ const bcrypt = require('bcrypt');
 
 const commentSchema = new mongoose.Schema(
     {
+        id_author: {
+            type: String,
+            max: 1024,
+        },
         author: {
             type: String,
             required: true,
@@ -12,11 +16,11 @@ const commentSchema = new mongoose.Schema(
             unique: true,
             trim: true
         },
-        content :{
+        content: {
             type: String,
             max: 1024,
         },
-        pet :{
+        pet: {
             type: String,
             max: 1024,
         }

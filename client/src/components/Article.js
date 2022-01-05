@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import DelArticle from "./delArticle";
+import {updateComment} from "../actions/comment.actions";
+import {useDispatch} from "react-redux";
 
-const Article = ({comment, idPet, idUser}) => {
+const Article = ({comment, uid}) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedContent, setEditedContent] = useState("");
+    const dispatch = useDispatch();
 
     const dateParser = (date) => {
         let newDate = new Date(date).toLocaleDateString('fr-FR', {
@@ -19,29 +22,22 @@ const Article = ({comment, idPet, idUser}) => {
     };
 
     const handleEdit = () => {
-        const data = {
-            author: comment.author,
-            id_author: comment.id_author,
-            content: editedContent ? editedContent : comment.content,
-            date: comment.date,
-            pet: idPet
-        };
-
-        axios.put("http://localhost:4000/api/comment/" + comment.id, data).then(() => setIsEditing(false));
+        let content = editedContent ? editedContent : comment.content;
+        dispatch(updateComment(comment._id, content))
+            .then(() => setIsEditing(false));
     };
 
     return (
         <li className="article" style={{ background: isEditing ? "#f3feff" : "white" }}>
             <div className="card-header">
                 <h3 key={comment.author}>{comment.author}</h3>
-                <em key={comment.date}>Posté le {dateParser(comment.date)}</em>
+                <em key={comment.createdAt}>Posté le {dateParser(comment.createdAt)}</em>
             </div>
             {isEditing
                 ? (<textarea onChange={(e) => setEditedContent(e.target.value)} autoFocus defaultValue={editedContent ? editedContent : comment.content}></textarea>)
                 : (<p key={comment.content}>{editedContent ? editedContent : comment.content}</p>)
             }
-            {
-                comment.id_author === "PngUNnesmjWXVQ6uQAs6vuEwxQS2" &&
+            {comment.id_author === uid &&
                 <div className="btn-container">
                     {isEditing
                         ? (<button onClick={handleEdit}>Valider</button>)

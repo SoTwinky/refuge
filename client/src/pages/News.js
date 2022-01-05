@@ -32,7 +32,7 @@ const News = ({petId}) => {
         if (content.length > 140) {
             setError(true);
         } else {
-            dispatch(addComment(userData.pseudo, content, petId))
+            dispatch(addComment(uid, userData.pseudo, content, petId))
                 .then(() => {
                     setContent("");
                     getComments();
@@ -63,9 +63,9 @@ const News = ({petId}) => {
                 {
                     commentsData
                         .filter((comment) => (petId === comment.pet))
-                        .sort((a, b) => b.date - a.date)
+                        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
                         .map((comment) => (
-                            <Article key={comment.name} comment={comment} idPet={petId}/>
+                            <Article key={comment.id} comment={comment} idPet={petId} uid={uid}/>
                         ))
                 }
 

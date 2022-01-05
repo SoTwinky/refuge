@@ -4,12 +4,12 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const UPDATE_CONTENT = "UPDATE_CONTENT";
 
-export const updateComment = (petId, content) => {
+export const updateComment = (commentId, content) => {
     return (dispatch) => {
         return axios({
             method: "put",
-            url: `${process.env.REACT_APP_API_URL}api/comment/` + petId,
-            data: { content },
+            url: `${process.env.REACT_APP_API_URL}api/comment/update/${commentId}`,
+            data: { content: content },
         })
             .then((res) => {
                 dispatch({ type: UPDATE_CONTENT, payload: content });
@@ -18,12 +18,13 @@ export const updateComment = (petId, content) => {
     };
 };
 
-export const addComment = (pseudo, content, petId) => {
+export const addComment = (id_author, pseudo, content, petId) => {
     return (dispatch) => {
         return axios({
             method: "post",
             url: `${process.env.REACT_APP_API_URL}api/comment/add/`,
             data: {
+                id_author: id_author,
                 author: pseudo,
                 content: content,
                 date: Date.now(),
@@ -37,15 +38,14 @@ export const addComment = (pseudo, content, petId) => {
     };
 };
 
-export const delComment = (petId, comment) => {
+export const delComment = (commentId) => {
     return (dispatch) => {
         return axios({
-            method: "patch",
-            url: `${process.env.REACT_APP_API_URL}api/comment/del/` + petId,
-            data: { comment },
+            method: "delete",
+            url: `${process.env.REACT_APP_API_URL}api/comment/delete/${commentId}`,
         })
             .then((res) => {
-                dispatch({ type: DELETE_COMMENT, payload: { comment } });
+                dispatch({ type: DELETE_COMMENT, payload: { commentId } });
             })
             .catch((err) => console.log(err));
     };
