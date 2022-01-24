@@ -3,29 +3,31 @@ import axios from "axios";
 import cookie from "js-cookie";
 
 const Logout = ({uid}) => {
-  const removeCookie = (key) => {
-    if (window !== "undefined") {
-      cookie.remove(key, { expires: 1 });
-    }
-  };
+    const removeCookie = (key) => {
+        if (window !== "undefined") {
+            cookie.remove(key, {expires: 1});
+        }
+    };
 
-  const logout = async () => {
-    await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/user/logout`,
-      withCredentials: true,
-    })
-        .then(() => removeCookie("jwt"))
-        .catch((err) => console.log(err));
+    const logout = async () => {
+        await axios({
+            method: "get",
+            url: `${process.env.REACT_APP_API_URL}api/user/logout`,
+            withCredentials: true,
+        })
+            .then(() => removeCookie("jwt"))
+            .catch((err) => console.log(err));
 
-    window.location = "/";
-  };
+        window.location.reload();
+    };
 
-  return (
-      <span onClick={logout}>
-              <img src="./img/icons/logout.svg" alt="Se déconnecter" />
-      </span>
-  );
+
+
+    return (
+        <div className="item red">
+            <a onClick={logout}><span>Se déconnecter</span></a>
+        </div>
+    );
 };
 
 export default Logout;

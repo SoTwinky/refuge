@@ -16,7 +16,9 @@ const Pet = () => {
             .then((res) => {
                 setData(res.data);
             })
-            .catch(err => {console.log(err)});
+            .catch(err => {
+                console.log(err)
+            });
     }, [_id]);
 
     var settings = {
@@ -24,7 +26,8 @@ const Pet = () => {
         infinite: true,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1
+        slidesToScroll: 1,
+        arrows: false
     };
 
     return (
@@ -32,11 +35,13 @@ const Pet = () => {
             <div className="accroche refuge">
 
                 <div className="texte innerCenter">
-                    <h1>Nom : {data.name}</h1>
-                    <p>Age : {data.age} {(data.age > 1 ? 'ans' : 'an')}</p>
-                    <p>Poids
-                        : {data.weight} {(data.weight > 1 ? 'kilos' : 'kilo')}</p>
-                    <FollowHandler idToFollow={_id}/>
+                    <div>
+                        <h1>Nom : {data.name}</h1>
+                        <p>Age : {data.age} {(data.age > 1 ? 'ans' : 'an')}</p>
+                        <p>Poids
+                            : {data.weight} {(data.weight > 1 ? 'kilos' : 'kilo')}</p>
+                        <FollowHandler idToFollow={_id}/>
+                    </div>
                 </div>
                 <div className="image">
                     {data.images
@@ -45,7 +50,8 @@ const Pet = () => {
                             {data.images.map((image, i) => {
                                 return (
                                     <div key={image}><img src={image} alt={'Photo' + data.name}/></div>
-                                )})}
+                                )
+                            })}
                         </Slider>
                         :
                         <div key={data.image}><img src={data.image} alt={'Photo' + data.name}/></div>

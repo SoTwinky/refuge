@@ -96,7 +96,6 @@ const PetsList = () => {
                             <div ref={range} className="slider__range" />
                         </div>
 
-
                         <span className="count">{rangeValueMin} - {rangeValueMax} an{rangeValueMax > 1 ? 's' : ''}</span>
                     </div>
                 </div>

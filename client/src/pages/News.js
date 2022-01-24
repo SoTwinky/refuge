@@ -5,7 +5,6 @@ import Log from "../components/Log";
 import {UidContext} from "../components/AppContext";
 import {useSelector} from "react-redux";
 import { addComment } from "../actions/comment.actions";
-import { getAllComments } from "../actions/comments.actions";
 import {useDispatch} from "react-redux";
 
 const News = ({petId}) => {

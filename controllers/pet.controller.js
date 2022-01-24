@@ -19,3 +19,17 @@ module.exports.getPetInfo = (req, res) => {
         }
     }).select();
 };
+
+module.exports.getPetFavorites = (req, res) => {
+    if (!ObjectID.isValid(req.params.id)) {
+        return res.status(400).send('1: ID inconnu ' + req.params.id)
+    }
+
+    PetModel.find({pet_followers: req.params.id}, (err, docs) => {
+        if (!err) {
+            res.send(docs);
+        } else {
+            console.log('2: ID inconnu ' + err);
+        }
+    }).select();
+};

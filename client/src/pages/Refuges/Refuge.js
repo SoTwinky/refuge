@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import axios from "axios";
-import HeaderRefuge from "../../core/Refuge/HeaderRefuge";
 import PetsRefuge from "../../components/PetsRefuge";
 import $ from "jquery";
 
@@ -18,19 +17,11 @@ const Refuge = () => {
             .catch(err => {
                 return err;
             });
-
-
-        $(document).ready(function () {
-            $("#document").addClass('menuRefuge');
-            $("#bandeauHaut").removeClass('menu');
-            $("#menuRefuge").appendTo($("#bandeauHaut"));
-            $("#menuSite").addClass('refuge');
-        });
+        console.log(_id);
     }, [_id]);
 
     return (
         <div>
-            <HeaderRefuge id={_id}/>
             <div id="contenu">
                 <div className="accroche" style={{backgroundImage: `url(${data.picture})`}}>
                     <div className="innerCenter">
@@ -77,7 +68,7 @@ const Refuge = () => {
                             Lorem Ipsum.
                         </p>
                     </div>
-                    <PetsRefuge refuge={data._id} key={data._id}/>
+                    <PetsRefuge refuge={_id} key={_id}/>
                 </div>
             </div>
         </div>

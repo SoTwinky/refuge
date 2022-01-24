@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
+import React, {useState} from 'react';
 import DelArticle from "./delArticle";
 import {updateComment} from "../actions/comment.actions";
 import {useDispatch} from "react-redux";

@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Redirect, useParams} from "react-router-dom";
 import React from "react";
 import Pets from "../pages/Pets/Pets";
 import NotFound from "../pages/NotFound";
@@ -13,63 +13,74 @@ import Admin from "../pages/Admin";
 import Login from "../pages/Login";
 import Header from "./Header";
 import Footer from "./Footer";
+import PetsFavorites from "../pages/Profil/PetsFavorites";
 
 
 const Routes = ({uid}) => {
-    return (
-            <Router>
-                <Header/>
-                <main id="corps">
-                    <Switch>
-                        <Route exact path="/">
-                            <Home/>
-                        </Route>
-                        <Route exact path="/refuges">
-                            <Refuges/>
-                        </Route>
-                        <Route exact path="/refuge/:_id">
-                            <Refuge/>
-                        </Route>
-                        <Route exact path="/refuge/:url/:niv">
-                            <Refuge/>
-                        </Route>
-                        <Route exact path="/pet/:_id">
-                            <Pet/>
-                        </Route>
-                        <Route exact path="/pets">
-                            <Pets/>
-                        </Route>
-                        <Route exact path="/news">
-                            <News/>
-                        </Route>
-                        <Route exact path="/about">
-                            <About/>
-                        </Route>
-                        <Route exact path="/login">
-                            {uid ? (
-                                <Redirect to="/profil"/>
-                            ) : (
-                                <Login/>
-                            )}
-                        </Route>
-                        <Route exact path="/profil">
-                            {uid ? (
-                                <Profil/>
-                            ) : (
-                                <Redirect to="/login"/>
-                            )}
-                        </Route>
 
-                        <Route exact path="/admin">
-                            <Admin/>
-                        </Route>
-                        <Route path="*">
-                            <NotFound/>
-                        </Route>
-                    </Switch>
-                </main>
-                <Footer/>
-            </Router>
+    return (
+        <Router>
+            <Switch>
+                <Route path="/refuge/:_id">
+                    <Header/>
+                </Route>
+                <Route path="*">
+                    <Header/>
+                </Route>
+            </Switch>
+            <main id="corps">
+                <Switch>
+                    <Route exact path="/">
+                        <Home/>
+                    </Route>
+                    <Route exact path="/refuges">
+                        <Refuges/>
+                    </Route>
+                    <Route exact path="/refuge/:_id">
+                        <Refuge/>
+                    </Route>
+                    <Route exact path="/refuge/:url/:niv">
+                        <Refuge/>
+                    </Route>
+                    <Route exact path="/pet/:_id">
+                        <Pet/>
+                    </Route>
+                    <Route exact path="/pets">
+                        <Pets/>
+                    </Route>
+                    <Route exact path="/news">
+                        <News/>
+                    </Route>
+                    <Route exact path="/about">
+                        <About/>
+                    </Route>
+                    <Route exact path="/login">
+                        {uid ? (
+                            <Redirect to="/profil"/>
+                        ) : (
+                            <Login/>
+                        )}
+                    </Route>
+                    <Route exact path="/profil">
+                        {uid ? (
+                            <Profil/>
+                        ) : (
+                            <Redirect to="/login"/>
+                        )}
+                    </Route>
+                    <Route path="/profil/pets">
+                        <PetsFavorites/>
+                    </Route>
+                    <Route exact path="/admin">
+                        <Admin/>
+                    </Route>
+                    <Route path="*">
+                        <NotFound/>
+                    </Route>
+                </Switch>
+            </main>
+            <Footer/>
+        </Router>
     );
 };
 
