@@ -1,3 +1,40 @@
+@for $liste_nb from 1 through 6 {
+    $padding: 30px;
+
+    .liste_#{$liste_nb} {
+        display: flex;
+        flex-wrap: wrap;
+
+        .item {
+            @if $liste_nb == 1 {
+                flex: 0 0 100%;
+                display: flex;
+
+                .visuel {
+                    max-width: 250px;
+                    width: 100%;
+                }
+
+                .itemInfo {
+                    span {
+                        display: block;
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+
+            @if $liste_nb > 1 {
+                flex: #{0 0 calc((100% / #{$liste_nb}) - #{$padding})};
+                margin-left: (($liste_nb * $padding) / ($liste_nb - 1));
+
+                &:nth-child(#{$liste_nb}n+1) {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
 [class*="liste_"] {
     padding: 0;
 
@@ -68,71 +105,9 @@
     }
 }
 
-.liste_1 {
-    .item {
-        display: flex;
 
-        .visuel {
-            max-width: 150px;
-            width: 100%;
-        }
-
-        .itemInfo {
-            span {
-                display: block;
-                margin-bottom: 1rem;
-            }
-        }
-    }
-}
-
-.liste_4 {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 2rem 0;
-
-    .item {
-        flex: #{"0 0 calc((100% / 4) - 20px)"};
-        margin-left: ((4 * 20px) / (4 - 1));
-
-        &:nth-child(4n+1) {
-            margin-left: 0;
-        }
-
-        .icone {
-            &::before {
-                position: absolute;
-                top: 10px;
-                right: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 36px;
-                height: 36px;
-                padding: 5px 8px;
-                box-sizing: border-box;
-                border-top-left-radius: 5px;
-                border-bottom-left-radius: 5px;
-                background: #fff;
-                @include fas;
-                z-index: 1;
-            }
-
-            &.male::before {
-                content: '\f222';
-                color: #0000ffb8;
-            }
-
-            &.female::before {
-                content: '\f221';
-                color: #ff0000b5;
-            }
-        }
-    }
-}
-
-#admin {
-    .slick-slider {
+.ul_slider {
+    &.slick-slider {
         overflow: hidden;
 
         .slick-track {
@@ -148,7 +123,7 @@
                 @extend .fas;
                 font-size: 3rem;
                 color: #d1e0f5;
-                text-shadow: 0 0 1px rgba(0,0,0,0.8);
+                text-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
             }
         }
 
@@ -161,7 +136,7 @@
                 @extend .fas;
                 font-size: 3rem;
                 color: #d1e0f5;
-                text-shadow: 0 0 1px rgba(0,0,0,0.8);
+                text-shadow: 0 0 1px rgba(0, 0, 0, 0.8);
             }
         }
 
@@ -179,68 +154,71 @@
         max-width: 370px;
         width: 100% !important;
         margin-right: 30px;
+    }
 
-        .item {
-            display: flex !important;
-            align-items: flex-end;
-            position: relative;
-            min-height: 150px;
-            padding: 20px;
-            box-sizing: border-box;
-            background: #589bff;
-            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s;
-            border-radius: 5px;
+    .item {
+        display: flex !important;
+        align-items: flex-end;
+        position: relative;
+        min-height: 150px;
+        padding: 20px;
+        box-sizing: border-box;
+        background: #589bff;
+        box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s;
+        border-radius: 5px;
 
-            &.red {
-                background: #df4343;
-                max-width: 300px;
+        &.red {
+            background: #df4343;
+            max-width: 300px;
+        }
+
+        a, button {
+            color: #fff;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+
+            &.user {
+                &::before {
+                    content: fa-content($fa-var-user);
+                    @extend .fas;
+                    position: absolute;
+                    top: 20px;
+                    right: 35px;
+                    text-shadow: none;
+                    font-size: 3rem;
+                    color: rgba(255, 255, 255, 0.3);
+                }
             }
 
-            a {
-                color: #fff;
-                font-weight: 500;
-                text-transform: uppercase;
-                font-size: 1.4rem;
-                text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-
-                &.user {
-                    &::before {
-                        content: fa-content($fa-var-user);
-                        @extend .fas;
-                        position: absolute;
-                        top: 20px;
-                        right: 35px;
-                        text-shadow: none;
-                        font-size: 3rem;
-                        color: rgba(255,255,255,0.3);
-                    }
-                }
-
-                span {
-                    position: relative;
-                    z-index: 2;
-                }
-
-                &:hover, &:focus {
-
-                    &::after {
-                        background: rgba(0, 0, 0, 0.2);
-                    }
-                }
-
-                &::after {
-                    content: '';
-                    position: absolute;
-                    inset: 0;
-                    background: transparent;
-                    transition: all 0.3s;
-                }
+            span {
+                position: relative;
+                z-index: 2;
             }
 
             &:hover, &:focus {
-                box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.0);
+
+                &::after {
+                    background: rgba(0, 0, 0, 0.2);
+                }
             }
+
+            &::after {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background: transparent;
+                transition: all 0.3s;
+            }
+        }
+
+        &:hover, &:focus {
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.0);
         }
     }
 }
@@ -296,4 +274,13 @@
     }
 }
 
-
+.voirPlus {
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 10px 20px;
+    background: $bleu;
+    border: 2px solid $bleu;
+    border-radius: 10px;
+    color: #fff;
+    margin-bottom: 3rem;
+}

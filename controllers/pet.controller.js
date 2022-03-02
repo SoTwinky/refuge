@@ -33,3 +33,20 @@ module.exports.getPetFavorites = (req, res) => {
         }
     }).select();
 };
+
+module.exports.createPet = async (req, res) => {
+
+    const newPet = new PetModel({
+        name: req.body.name,
+        color: req.body.color,
+        age: req.body.age,
+        gender: req.body.gender
+    });
+
+    try {
+        const pet = await PetModel.create(newPet);
+        return res.status(201).json(pet);
+    } catch (err) {
+        return res.status(500).send({err});
+    }
+};

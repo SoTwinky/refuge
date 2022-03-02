@@ -1,0 +1,22 @@
+#header_super_admin {
+    display: flex;
+    justify-content: center;
+
+    li {
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background: #ef3842;
+            color: #fff;
+            border: 2px solid #ef3842;
+            border-radius: 5px;
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+
+            &:hover, &:focus {
+                background: #ff767d;
+            }
+        }
+    }
+}

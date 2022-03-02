@@ -6,7 +6,7 @@ module.exports.getAllRefuges = async (req, res) => {
     res.status(200).json(refuges);
 };
 
-
+/*
 module.exports.getRefugeInfo = (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send('Refuge inconnu : ' + req.params.id)
@@ -19,6 +19,37 @@ module.exports.getRefugeInfo = (req, res) => {
             console.log('Refuge inconnu' + err);
         }
     }).select();
+
+};
+*/
+
+
+module.exports.getRefugeInfo = (req, res) => {
+    if (!ObjectID.isValid(req.params.id)) {
+        if (req.params.id) {
+            RefugeModel.findOne({url : req.params.id}, (err, docs) => {
+                if (!err) {
+                    res.send(docs);
+                } else {
+                    console.log({url : req.params.id});
+                }
+            }).select();
+
+            console.log('test');
+        } else {
+            console.log('test' + req.params.id);
+            return res.status(400).send('!Refuge inconnu : ' + req.params.id)
+        }
+    } else {
+        RefugeModel.findById(req.params.id, (err, docs) => {
+            if (!err) {
+                res.send(docs);
+                console.log('test false');
+            } else {
+                console.log('Refuge inconnu' + err);
+            }
+        }).select();
+    }
 };
 
 module.exports.updateRefuge = async (req, res) => {
@@ -31,7 +62,8 @@ module.exports.updateRefuge = async (req, res) => {
             {_id: req.params.id},
             {
                 $set: {
-                    bio: req.body.bio,
+                    name: req.body.name,
+                    country: req.body.country
                 }
             },
             {new: true, upsert: true, setDefaultsOnInsert: true}
@@ -54,4 +86,21 @@ module.exports.deleteRefuge = async (req, res) => {
     } catch (err) {
         return res.status(500).json({message: err});
     }
-}
+};
+
+module.exports.createRefuge = async (req, res) => {
+
+    const newRefuge = new RefugeModel({
+        name: req.body.name,
+        url: req.body.url,
+        picture: req.body.picture,
+        country: req.body.country
+    });
+
+    try {
+        const refuge = await RefugeModel.create(newRefuge);
+        return res.status(201).json(refuge);
+    } catch (err) {
+        return res.status(500).send({err});
+    }
+};

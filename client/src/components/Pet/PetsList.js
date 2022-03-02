@@ -140,9 +140,9 @@ const PetsList = () => {
                 {data
                     .filter((pet) => pet.color.includes(selectedRadio))
                     .filter((pet) => selectedGender ? pet.gender === selectedGender : pet.gender.includes(selectedGender))
-                    .sort((a, b) => a.age - b.age)
                     .filter((pet) => pet.age >= rangeValueMin)
                     .filter((pet) => pet.age <= rangeValueMax)
+                    .sort((a, b) => a.age - b.age)
                     .map((pet) => (
                         <PetItem pet={pet} key={pet.name}/>
                     ))}

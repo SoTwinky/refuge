@@ -25,7 +25,7 @@ const Logout = ({uid}) => {
 
     return (
         <div className="item red">
-            <a onClick={logout}><span>Se déconnecter</span></a>
+            <button onClick={logout}>Se déconnecter</button>
         </div>
     );
 };

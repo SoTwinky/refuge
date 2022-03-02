@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Switch, Route, Redirect, useParams} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import React from "react";
 import Pets from "../pages/Pets/Pets";
 import NotFound from "../pages/NotFound";
@@ -13,8 +13,14 @@ import Admin from "../pages/Admin";
 import Login from "../pages/Login";
 import Header from "./Header";
 import Footer from "./Footer";
+import SuperAdmin from "../pages/SuperAdmin";
 import PetsFavorites from "../pages/Profil/PetsFavorites";
-
+import NewPet from "../pages/New/NewPet";
+import NewRefuge from "../pages/New/NewRefuge";
+import NewUser from "../pages/New/NewUser";
+import EditRefuge from "../pages/Edit/EditRefuge";
+import EditPet from "../pages/Edit/EditPet";
+import EditUser from "../pages/Edit/EditUser";
 
 const Routes = ({uid}) => {
 
@@ -68,11 +74,32 @@ const Routes = ({uid}) => {
                             <Redirect to="/login"/>
                         )}
                     </Route>
-                    <Route path="/profil/pets">
+                    <Route path="/profil/pets-favoris">
                         <PetsFavorites/>
                     </Route>
                     <Route exact path="/admin">
                         <Admin/>
+                    </Route>
+                    <Route exact path="/super-admin">
+                        <SuperAdmin/>
+                    </Route>
+                    <Route exact path="/super-admin/new-refuge">
+                        <NewRefuge/>
+                    </Route>
+                    <Route exact path="/super-admin/new-pet">
+                        <NewPet/>
+                    </Route>
+                    <Route exact path="/super-admin/new-user">
+                        <NewUser/>
+                    </Route>
+                    <Route exact path="/super-admin/edit-refuge/:id">
+                        <EditRefuge/>
+                    </Route>
+                    <Route exact path="/super-admin/edit-pet/:id">
+                        <EditPet/>
+                    </Route>
+                    <Route exact path="/super-admin/edit-user/:id">
+                        <EditUser/>
                     </Route>
                     <Route path="*">
                         <NotFound/>

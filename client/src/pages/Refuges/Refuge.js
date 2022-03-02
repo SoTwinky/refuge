@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import axios from "axios";
 import PetsRefuge from "../../components/PetsRefuge";
-import $ from "jquery";
 
 const Refuge = () => {
     const {_id} = useParams();
@@ -17,7 +16,6 @@ const Refuge = () => {
             .catch(err => {
                 return err;
             });
-        console.log(_id);
     }, [_id]);
 
     return (

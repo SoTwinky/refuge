@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useContext} from "react";
 import {useSelector} from "react-redux";
 import {UidContext} from "../components/AppContext";
 import Logout from "../components/Log/Logout";
@@ -28,13 +28,16 @@ const Profil = () => {
         });
 
     return (
-        <div className="innerCenter" id="admin">
+        <div className="innerCenter">
             <h1>Bonjour {userData.pseudo},</h1>
             <p>Ici, vous retrouverez vos raccourcis et votre profil ! </p>
             <div className="mBot">
                 <h2>Mes raccourcis :</h2>
                 <div className="relative">
-                    <Slider {...settings} className="liste_slick">
+                    <Slider {...settings} className="liste_slick ul_slider">
+                        <div className="item randomColor">
+                            <a href="/super-admin"><span>Super Administrateur</span></a>
+                        </div>
                         <div className="item randomColor">
                             <a href="/admin"><span>Administrateur</span></a>
                         </div>
@@ -42,7 +45,7 @@ const Profil = () => {
                             <a href="/admin"><span>Mes refuges favoris</span></a>
                         </div>
                         <div className="item randomColor">
-                            <a href={PetsFavorites}><span>Mes animaux favoris</span></a>
+                            <button onClick={PetsFavorites}><span>Mes animaux favoris</span></button>
                         </div>
                         <div className="item randomColor">
                             <a href="/profil/pets"><span>Mes animaux favoris</span></a>
@@ -53,7 +56,7 @@ const Profil = () => {
             <div>
                 <h2>Mon profil :</h2>
                 <div className="relative">
-                    <Slider {...settings} className="liste_slick">
+                    <Slider {...settings} className="liste_slick ul_slider">
                         <div className="item randomColor">
                             <a href="/admin" className="user"><span>Mon profil</span></a>
                         </div>
@@ -72,7 +75,7 @@ const Profil = () => {
                     </Slider>
                 </div>
             </div>
-            <div className="slick-slide mBot">
+            <div className="ul_slider mBot">
                 <Logout uid={uid}/>
             </div>
         </div>

@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from "axios";
+import PetItem from "../Pet/PetItem";
 
 const RefugeItem = ({refuge}) => {
+
     return (
         <li className="item">
             <div className="visuel">
@@ -9,7 +12,6 @@ const RefugeItem = ({refuge}) => {
             <div className="itemInfo">
                 <div className={'icone ' + refuge.country} key={refuge.country.id}><span className="visuallyhidden">{refuge.country}</span></div>
                 <a href={"/refuge/" + refuge._id} key={refuge.name.id}>{refuge.name}</a>
-                <div key={refuge.population.id}>Age: {refuge.population}</div>
             </div>
         </li>
     );

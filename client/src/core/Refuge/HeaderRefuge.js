@@ -1,18 +1,19 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import axios from "axios";
 import {CSSTransition} from "react-transition-group";
 
-const HeaderRefuge = ({id}) => {
+const HeaderRefuge = () => {
+    const {_id} = useParams();
     const [data, setData] = useState([]);
     const [ariaExpanded, setAriaExpanded] = useState(false);
     const [ariaHidden, setAriaHidden] = useState(true);
     const [menuHeight, setMenuHeight] = useState(null);
     const dropdownRef = useRef(null);
 
-    useEffect((id) => {
+    useEffect(() => {
         axios
-            .get('http://localhost:4000/api/page/' + id)
+            .get('http://localhost:4000/api/page/' + _id)
             .then((res) => {
                 setData(res.data);
             })
@@ -20,7 +21,7 @@ const HeaderRefuge = ({id}) => {
                 return err;
             });
         setMenuHeight(dropdownRef.current?.firstChild.offsetHeight)
-    }, []);
+    }, [_id]);
 
     function calcHeight(el) {
         const height = el.offsetHeight;
@@ -36,7 +37,7 @@ const HeaderRefuge = ({id}) => {
     const menu = Object.values(Object.assign({}, (data.menu))).map((niv1, i) => {
             if (Object.prototype.toString.call(niv1) === '[object Object]') {
                 return (
-                    <li>
+                    <li key={i}>
                         <a id="nav-1" href={Object.keys(niv1).toString().replace(/ /g, "_")}
                            className="withChild aria-toggle" role="button"
                            aria-controls={"sousMenu_" + i} aria-expanded={ariaExpanded.toString()} onClick={toggle}>
@@ -47,9 +48,9 @@ const HeaderRefuge = ({id}) => {
                                  aria-hidden={ariaHidden.toString()} style={{height: menuHeight}} ref={dropdownRef}>
                                 <ul>
                                     {niv1[Object.keys(niv1)].map(
-                                        (niv2, i) => {
+                                        (niv2, i2) => {
                                             return (
-                                                <li>
+                                                <li key={i2}>
                                                     <NavLink exact to={niv2.replace(/ /g, "_")}
                                                              activeClassName="nav-active">
                                                         <span key={niv2}>{niv2}</span>
@@ -64,7 +65,7 @@ const HeaderRefuge = ({id}) => {
                 )
             } else {
                 return (
-                    <li>
+                    <li key={i}>
                         <NavLink exact to={niv1.toString().replace(/ /g, "_")} activeClassName="nav-active">
                             <span key={niv1.toString()}>{niv1.toString()}</span>
                         </NavLink>
