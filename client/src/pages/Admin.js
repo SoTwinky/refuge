@@ -1,22 +1,46 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
+import axios from "axios";
+import {UidContext} from "../components/AppContext";
 
 const Admin = () => {
+    const [refuge, setRefuge] = useState([]);
+    const [indexRefuges, setIndexRefuges] = useState(3);
+    const uid = useContext(UidContext);
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:4000/api/refuge')
+            .then((res) => {
+                setRefuge(res.data);
+            });
+    }, []);
+
+    console.log(refuge.map((item) => { return item.admin_users?.map((admin, index) => admin[index] === '61d0b36baa9460582d0aea7f')}));
+
     return (
         <div className="innerCenter" id="admin">
-            <p>Ici, vous retrouverez vos raccourcis et votre profil !</p>
-
             <div className="mBot">
-                <h2>Mes raccourcis :</h2>
-                <ul className="liste_3 ul_slider">
-                    <li className="item randomColor">
-                        <a href="/parrains"><span>Parrains</span></a>
-                    </li>
-                    <div className="item randomColor">
-                        <a href="/refuges"><span>Refuges</span></a>
-                    </div>
-                    <div className="item randomColor">
-                        <a href="/animaux"><span>Animaux</span></a>
-                    </div>
+                <h2>Gestion de vos refuges :</h2>
+                <ul className="liste_2 ul_slider liste_refuge">
+                    {refuge
+                        .filter((item) => {
+                            return item.admin_users?.some((admin) => admin === uid)
+                        })
+                        .sort((a, b) => b.id - a.id)
+                        .slice(0, indexRefuges)
+                        .map((item) => (
+                            <li className="item" key={item._id}>
+                                <div className="visuel">
+                                    <img src={item.picture} alt={'Photo' + item.pseudo}/>
+                                </div>
+                                <div className="itemInfo">
+                                    <h3>
+                                        <a href={"/super-admin/edit-refuge/" + item._id}
+                                           key={item.name.id}>{item.name}</a>
+                                    </h3>
+                                </div>
+                            </li>
+                        ))}
                 </ul>
             </div>
         </div>

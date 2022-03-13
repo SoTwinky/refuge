@@ -1,51 +1,49 @@
 import axios from "axios";
 
 export const ADD_PET = "ADD_PET";
+export const UPDATE_NAME = "UPDATE_NAME";
 export const DELETE_PET = "DELETE_PET";
-export const UPDATE_CONTENT = "UPDATE_CONTENT";
 
-export const updateComment = (commentId, content) => {
-    return (dispatch) => {
-        return axios({
-            method: "put",
-            url: `${process.env.REACT_APP_API_URL}api/comment/update/${commentId}`,
-            data: { content: content },
-        })
-            .then((res) => {
-                dispatch({ type: UPDATE_CONTENT, payload: content });
-            })
-            .catch((err) => console.log(err));
-    };
-};
-
-export const addComment = (id_author, pseudo, content, petId) => {
+export const createPet = (name, country) => {
     return (dispatch) => {
         return axios({
             method: "post",
-            url: `${process.env.REACT_APP_API_URL}api/comment/add/`,
+            url: `${process.env.REACT_APP_API_URL}api/pet/`,
             data: {
-                id_author: id_author,
-                author: pseudo,
-                content: content,
-                date: Date.now(),
-                pet: petId
+                name: name,
+                url: name.replace(/ /g,"_").toLowerCase(),
+                country: country
             },
         })
             .then((res) => {
-                dispatch({ type: ADD_COMMENT, payload: { petId } });
+                dispatch({ type: ADD_PET, payload: { name } });
             })
             .catch((err) => console.log(err));
     };
 };
 
-export const delComment = (commentId) => {
+export const updatePet = (petId, name, country) => {
+    return (dispatch) => {
+        return axios({
+            method: "put",
+            url: `${process.env.REACT_APP_API_URL}api/pet/update/${petId}`,
+            data: { name: name, country: country },
+        })
+            .then((res) => {
+                dispatch({ type: UPDATE_NAME, payload: { name, country} });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+
+export const deletePet = (petId) => {
     return (dispatch) => {
         return axios({
             method: "delete",
-            url: `${process.env.REACT_APP_API_URL}api/comment/delete/${commentId}`,
+            url: `${process.env.REACT_APP_API_URL}api/pet/delete/${petId}`,
         })
             .then((res) => {
-                dispatch({ type: DELETE_COMMENT, payload: { commentId } });
+                dispatch({ type: DELETE_PET, payload: { petId } });
             })
             .catch((err) => console.log(err));
     };

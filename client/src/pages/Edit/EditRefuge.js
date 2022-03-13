@@ -9,14 +9,17 @@ import DeleteRefuge from "../Delete/DeleteRefuge";
 const EditRefuge = () => {
     const {id} = useParams();
     const [refuge, setRefuge] = useState("");
+    const [pets, setPets] = useState([]);
+    const [indexPets, setIndexPets] = useState(3);
+    const [searchTermPets, setSearchTermPets] = useState('');
     const [editedName, setEditedName] = useState("");
     const [editedCountry, setEditedCountry] = useState("");
     const [error, setError] = useState(false);
     const pageName = 'Éditer le refuge';
     const options = {
         items: [
-            { to: "/profil", label: "Profil" },
-            { to: "/super-admin", label: "Super Administrateur" }
+            {to: "/profil", label: "Profil"},
+            {to: "/super-admin", label: "Administrateur"}
         ]
     };
     const dispatch = useDispatch();
@@ -25,6 +28,12 @@ const EditRefuge = () => {
         axios
             .get('http://localhost:4000/api/refuge/' + id)
             .then((res) => setRefuge(res.data))
+
+        axios
+            .get('http://localhost:4000/api/pet')
+            .then((res) => {
+                setPets(res.data);
+            });
     }, []);
 
     const handleEdit = () => {
@@ -32,24 +41,114 @@ const EditRefuge = () => {
         let country = editedCountry ? editedCountry : refuge.country;
         dispatch(updateRefuge(refuge._id, name, country))
             .then(() => {
-                window.location.replace(`http://localhost:3000/refuge/` + name.replace(/ /g,"_").toLowerCase())
+                window.location.replace(`http://localhost:3000/refuge/` + name.replace(/ /g, "_").toLowerCase())
             });
     };
 
     return (
         <div className="innerCenter">
             <SimpleBreadcrumbs options={options} pageName={pageName}/>
-            <h1>Éditer le refuge</h1>
-            <form
-                onSubmit={(e) => handleEdit(e)} className="form-container-1">
-                <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Name"
-                       type="text" id="" cols="30" rows="10" onChange={(e) => setEditedName(e.target.value)} autoFocus defaultValue={editedName ? editedName : refuge.name}/>
-                {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
-                <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
-                       type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)} autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
-                <input type="submit" value="Envoyer"/>
-            </form>
-            <DeleteRefuge refuge={refuge}/>
+            <h1>Bienvenue aux administateurs du refuge : {refuge.name}</h1>
+            <div>
+                <h2>Gestion des informations principales :</h2>
+                <form
+                    onSubmit={(e) => handleEdit(e)}>
+
+                    <label>Nom du refuge :</label>
+                    <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Name"
+                           type="text" id="" cols="30" rows="10" onChange={(e) => setEditedName(e.target.value)} autoFocus
+                           defaultValue={editedName ? editedName : refuge.name}/>
+                    {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
+
+                    <br/>
+                    <label>Url :</label>
+                    <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
+                           type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
+                           autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
+
+                    <br/>
+                    <label>Pays :</label>
+                    <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
+                           type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
+                           autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
+
+                    <br/>
+                    <label>Image :</label>
+                    <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
+                           type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
+                           autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
+
+                    <div className="flexCenter">
+                        <DeleteRefuge refuge={refuge}/><input type="submit" value="Envoyer"/>
+                    </div>
+                </form>
+            </div>
+
+            <div>
+                <h2>Gestion des animaux :</h2>
+                <ul>
+                    <div id={'section_'} className="section-hidden">
+                        <div className="searchBar">
+                            <label>Recherche</label>
+                            <input type="text" placeholder="Search..." onChange={event => {
+                                setSearchTermPets(event.target.value)
+                            }}/>
+                        </div>
+                        <ul className="liste_4">
+                            <li className="item first add_item">
+                                <div className="itemInfo">
+                                    <a href="/super-admin/new-pet"><span className="visuallyhidden">Ajouter</span></a>
+                                </div>
+                            </li>
+                            {pets
+                                .filter((item) => {
+                                    if(item.refuge === id) {
+                                        if (searchTermPets === "") {
+                                            return item;
+                                        } else if (item.name?.toLowerCase().includes(searchTermPets.toLowerCase())) {
+                                            return item;
+                                        }
+                                    }
+
+                                    return false;
+                                })
+                                .sort((a, b) => b.id - a.id)
+                                .slice(0, indexPets)
+                                .map((item) => (
+                                    <li className="item" key={item._id}>
+                                        <div className="visuel">
+                                            <img src={item.picture} alt={'Photo' + item.pseudo}/>
+                                        </div>
+                                        <div className="itemInfo">
+                                            <h3>
+                                                <a href={"/super-admin/edit-refuge/" + item._id}
+                                                   key={item.name.id}>{item.name}</a>
+                                            </h3>
+                                            <p>Url: {item.url}</p><br/>
+                                            <span>Pays: {item.country}</span><br/>
+                                            <span>Population: {item.population}</span>
+                                        </div>
+                                    </li>
+                                ))}
+                        </ul>
+                        {indexPets < pets.filter((item) => {
+                            if(item.refuge === id) {
+                                if (searchTermPets === "") {
+                                    return item;
+                                } else if (item.name?.toLowerCase().includes(searchTermPets.toLowerCase())) {
+                                    return item;
+                                }
+                            }
+
+                            return false;
+                        }).length &&
+                        <div className="flexCenter">
+                            <button className="voirPlus" onClick={() => setIndexPets(indexPets + 8)}>Voir plus</button>
+                        </div>
+                        }
+                    </div>
+                </ul>
+            </div>
         </div>
     );
 };

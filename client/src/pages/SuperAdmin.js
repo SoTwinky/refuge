@@ -36,7 +36,7 @@ const SuperAdmin = () => {
 
     const options = {
         items: [
-            { to: "/profil", label: "Profil" }
+            {to: "/profil", label: "Profil"}
         ]
     };
 
@@ -47,21 +47,24 @@ const SuperAdmin = () => {
             <SimpleBreadcrumbs options={options} pageName={pageName}/>
             <ul id="header_super_admin" className="liste_2 ul_slider">
                 <li>
-                    <button className="btnVisible">Tous les refuges</button>
+                    <button className="btnVisible red">Tous les refuges</button>
                 </li>
                 <li>
-                    <button className="btnVisible">Tous les utilisateurs</button>
+                    <button className="btnVisible blue">Tous les utilisateurs</button>
                 </li>
             </ul>
-            <div id={'section_' + id++} className="section-hidden">
+            <div id={'section_' + id++} className="section-hidden refuge_style">
                 <h2>Liste des refuges</h2>
-                <input type="text" placeholder="Search..." onChange={event => {
-                    setSearchTermRefuges(event.target.value)
-                }}/>
+                <div className="searchBar">
+                    <label>Recherche :</label>
+                    <input type="text" placeholder="Search..." onChange={event => {
+                        setSearchTermRefuges(event.target.value)
+                    }}/>
+                </div>
                 <ul className="liste_4">
-                    <li className="item first">
+                    <li className="item first add_item">
                         <div className="itemInfo">
-                            <a href="/super-admin/new-refuge">Ajouter</a>
+                            <a href="/super-admin/new-refuge"><span className="visuallyhidden">Ajouter</span></a>
                         </div>
                     </li>
                     {refuges
@@ -104,15 +107,18 @@ const SuperAdmin = () => {
                 }
             </div>
 
-            <div id={'section_' + id++} className="section-hidden">
+            <div id={'section_' + id++} className="section-hidden user_style">
                 <h2>Liste des utilisateurs</h2>
-                <input type="text" placeholder="Search..." onChange={event => {
-                    setSearchTermUsers(event.target.value)
-                }}/>
+                <div className="searchBar">
+                    <label>Recherche :</label>
+                    <input type="text" placeholder="Search..." onChange={event => {
+                        setSearchTermUsers(event.target.value)
+                    }}/>
+                </div>
                 <ul className="liste_4">
-                    <li className="item first">
+                    <li className="item first add_item">
                         <div className="itemInfo">
-                            <span>Ajouter</span>
+                            <a href="/super-admin/new-user"><span className="visuallyhidden">Ajouter</span></a>
                         </div>
                     </li>
                     {users

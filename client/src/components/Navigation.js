@@ -11,17 +11,17 @@ const Navigation = () => {
         <ul className="navigation">
             <li>
                 <NavLink exact to="/refuges" activeClassName="nav-active">
-                    Découvrir les refuges
+                    Découvrir/Soutenir un refuge
                 </NavLink>
             </li>
             <li>
                 <NavLink exact to="/pets" activeClassName="nav-active">
-                    Trouver votre animal
+                    Adopter/Parrainer un animal
                 </NavLink>
             </li>
             <li>
                 <NavLink exact to="/news" activeClassName="nav-active">
-                    La fondation
+                    Participer/Donner aux projets
                 </NavLink>
             </li>
             <li>

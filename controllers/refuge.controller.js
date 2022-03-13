@@ -6,24 +6,6 @@ module.exports.getAllRefuges = async (req, res) => {
     res.status(200).json(refuges);
 };
 
-/*
-module.exports.getRefugeInfo = (req, res) => {
-    if (!ObjectID.isValid(req.params.id)) {
-        return res.status(400).send('Refuge inconnu : ' + req.params.id)
-    }
-
-    RefugeModel.findById(req.params.id, (err, docs) => {
-        if (!err) {
-            res.send(docs);
-        } else {
-            console.log('Refuge inconnu' + err);
-        }
-    }).select();
-
-};
-*/
-
-
 module.exports.getRefugeInfo = (req, res) => {
     if (!ObjectID.isValid(req.params.id)) {
         if (req.params.id) {

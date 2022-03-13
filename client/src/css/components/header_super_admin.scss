@@ -6,16 +6,28 @@
         button {
             padding: 10px 20px;
             margin: 0 10px;
-            background: #ef3842;
             color: #fff;
-            border: 2px solid #ef3842;
             border-radius: 5px;
             font-weight: 600;
             text-transform: uppercase;
             cursor: pointer;
 
-            &:hover, &:focus {
-                background: #ff767d;
+            &.blue {
+                background: #3846ef;
+                border: 2px solid #3846ef;
+
+                &:hover, &:focus {
+                    background: #3846ef;
+                }
+            }
+
+            &.red {
+                background: #ef3842;
+                border: 2px solid #ef3842;
+
+                &:hover, &:focus {
+                    background: #ff767d;
+                }
             }
         }
     }
