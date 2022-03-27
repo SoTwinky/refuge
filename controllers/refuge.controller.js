@@ -16,19 +16,13 @@ module.exports.getRefugeInfo = (req, res) => {
                     console.log({url : req.params.id});
                 }
             }).select();
-
-            console.log('test');
         } else {
-            console.log('test' + req.params.id);
             return res.status(400).send('!Refuge inconnu : ' + req.params.id)
         }
     } else {
         RefugeModel.findById(req.params.id, (err, docs) => {
             if (!err) {
                 res.send(docs);
-                console.log('test false');
-            } else {
-                console.log('Refuge inconnu' + err);
             }
         }).select();
     }

@@ -26,6 +26,9 @@ const petSchema = new mongoose.Schema(
         comments: {
             type: [String]
         },
+        formAdoption: {
+            type: [String]
+        }
     },
     {
         timestamps: true,

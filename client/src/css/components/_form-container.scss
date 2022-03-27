@@ -106,27 +106,3 @@
     }
 }
 
-
-.form-adoption {
-    position: relative;
-    padding: 50px 0;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: #{calc(50% - 50vw)};
-        right: #{calc(50% - 50vw)};
-        background: #ff8300;
-        z-index: -1;
-    }
-
-    h2 {
-        margin: 0;
-    }
-
-    #btn-adoption {
-        margin-left: 50px;
-    }
-}

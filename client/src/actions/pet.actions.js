@@ -3,6 +3,7 @@ import axios from "axios";
 export const ADD_PET = "ADD_PET";
 export const UPDATE_NAME = "UPDATE_NAME";
 export const DELETE_PET = "DELETE_PET";
+export const ADD_FORM_ADOPTION = "ADD_FORM_ADOPTION";
 
 export const createPet = (name, country) => {
     return (dispatch) => {
@@ -44,6 +45,24 @@ export const deletePet = (petId) => {
         })
             .then((res) => {
                 dispatch({ type: DELETE_PET, payload: { petId } });
+            })
+            .catch((err) => console.log(err));
+    };
+};
+
+export const createFormAdoption = (name, _id, uid) => {
+    return (dispatch) => {
+        return axios({
+            method: "post",
+            url: `${process.env.REACT_APP_API_URL}api/pet/formAdoption/`,
+            data: {
+                name: name,
+                _id: _id,
+                uid: uid
+            },
+        })
+            .then((res) => {
+                dispatch({ type: ADD_FORM_ADOPTION, payload: { name } });
             })
             .catch((err) => console.log(err));
     };

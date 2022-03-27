@@ -53,9 +53,9 @@ const FormAdoption = () => {
     };
 
     return (
-        <div className="form-adoption">
+        <div className="MISENAVANT_ADOPTION">
             <div className="flexCenter">
-                <h2>Vous souhaitez m'adopter ?</h2>
+                <h2>Vous avez des questions ?</h2>
                 <button onClick={handleAdoption}
                         id="btn-adoption"
                         className={btnAdoption ? "active-btn" : null}

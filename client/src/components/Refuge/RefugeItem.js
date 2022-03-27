@@ -1,6 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import axios from "axios";
-import PetItem from "../Pet/PetItem";
+import React from 'react';
 
 const RefugeItem = ({refuge}) => {
 

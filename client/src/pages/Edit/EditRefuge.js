@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
-import {createRefuge, updateRefuge} from "../../actions/refuge.actions";
+import {updateRefuge} from "../../actions/refuge.actions";
 import SimpleBreadcrumbs from "../../components/Breadcrumbs";
 import {useParams} from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,7 @@ import DeleteRefuge from "../Delete/DeleteRefuge";
 
 const EditRefuge = () => {
     const {id} = useParams();
+    const dispatch = useDispatch();
     const [refuge, setRefuge] = useState("");
     const [pets, setPets] = useState([]);
     const [indexPets, setIndexPets] = useState(3);
@@ -22,7 +23,6 @@ const EditRefuge = () => {
             {to: "/super-admin", label: "Administrateur"}
         ]
     };
-    const dispatch = useDispatch();
 
     useEffect(() => {
         axios
@@ -34,6 +34,7 @@ const EditRefuge = () => {
             .then((res) => {
                 setPets(res.data);
             });
+
     }, []);
 
     const handleEdit = () => {
@@ -83,7 +84,35 @@ const EditRefuge = () => {
                     </div>
                 </form>
             </div>
-
+            <div>
+                <h2>Liste des demandes d'adoption :</h2>
+                <ul className="liste_1">
+                    {pets
+                        .filter((item) => {
+                            if(item.refuge === id) {
+                                if (item.formAdoption.length > 0) {
+                                    return item;
+                                }
+                            }
+                        })
+                        .sort((a, b) => b.id - a.id)
+                        .slice(0, 100)
+                        .map((item) => (
+                            <li className="item" key={item._id}>
+                                <div className="itemInfo">
+                                    <h3>
+                                        <a href={"/super-admin/edit-pet/" + item._id}
+                                           key={item.name.id}>{item.name}</a>
+                                    </h3>
+                                    <span>Age: {item.age}</span><br/>
+                                    <span>Sexe: {item.gender}</span>
+                                    <span>Nombre de demandes d'adoption : {item.formAdoption.length}</span>
+                                    Au clic, il faut arriver sur une liste des formulaires d'infos + adoption
+                                </div>
+                            </li>
+                        ))}
+                </ul>
+            </div>
             <div>
                 <h2>Gestion des animaux :</h2>
                 <ul>
@@ -121,12 +150,11 @@ const EditRefuge = () => {
                                         </div>
                                         <div className="itemInfo">
                                             <h3>
-                                                <a href={"/super-admin/edit-refuge/" + item._id}
+                                                <a href={"/super-admin/edit-pet/" + item._id}
                                                    key={item.name.id}>{item.name}</a>
                                             </h3>
-                                            <p>Url: {item.url}</p><br/>
-                                            <span>Pays: {item.country}</span><br/>
-                                            <span>Population: {item.population}</span>
+                                            <span>Age: {item.age}</span><br/>
+                                            <span>Sexe: {item.gender}</span>
                                         </div>
                                     </li>
                                 ))}

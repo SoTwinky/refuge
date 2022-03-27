@@ -21,6 +21,7 @@ import NewUser from "../pages/New/NewUser";
 import EditRefuge from "../pages/Edit/EditRefuge";
 import EditPet from "../pages/Edit/EditPet";
 import EditUser from "../pages/Edit/EditUser";
+import NewFormAdoption from "../pages/New/NewFormAdoption";
 
 const Routes = ({uid}) => {
 
@@ -76,6 +77,9 @@ const Routes = ({uid}) => {
                     </Route>
                     <Route path="/profil/pets-favoris">
                         <PetsFavorites/>
+                    </Route>
+                    <Route exact path="/newFormAdoption/:_id">
+                        <NewFormAdoption/>
                     </Route>
                     <Route exact path="/admin">
                         <Admin/>

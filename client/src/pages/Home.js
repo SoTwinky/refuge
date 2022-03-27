@@ -32,6 +32,10 @@ const Home = () => {
                         ))}
                 </ul>
             </div>
+            <div>
+                <h2>Un organisme certifié</h2>
+                <p>Tous nos refuges sont vérifiés et approuvés par nos équipes pour vous assurer le bon déroulement dans vos recherches et un vrai suivi lors de vos adoptions.</p>
+            </div>
             <div className="MISENAVANT_ORANGE">
                 <h2>Participer à un projet</h2>
                 <ul className="liste_3">

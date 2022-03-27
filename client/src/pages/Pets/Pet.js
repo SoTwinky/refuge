@@ -59,7 +59,12 @@ const Pet = () => {
                 </div>
             </div>
             <div className="innerCenter">
+                <div className="MISENAVANT_HISTOIRE">
+                    <h2>Ma petite histoire !</h2>
+                    <p>J'ai été retrouvé au refuge</p>
+                </div>
                 <FormAdoption/>
+                <div className="MISENAVANT_QUESTION"><span>Vous souhaitez m'adopter ?</span><a href={/newFormAdoption/ + data._id}>Déposer un dossier pour moi !</a></div>
                 <News petId={_id}/>
             </div>
         </div>
