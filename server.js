@@ -7,6 +7,7 @@ const petRoutes = require('./routes/pet.routes');
 const refugeRoutes = require('./routes/refuge.routes');
 const pageRoutes = require('./routes/page.routes');
 const commentRoutes = require('./routes/comment.routes');
+const formAdoptionRoutes = require('./routes/formAdoption.routes');
 const app = express();
 const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const cors = require('cors');
@@ -43,6 +44,7 @@ app.use('/api/pet', petRoutes);
 app.use('/api/refuge', refugeRoutes);
 app.use('/api/page', pageRoutes);
 app.use('/api/comment', commentRoutes);
+app.use('/api/formAdoption', formAdoptionRoutes);
 
 //server
 app.listen(process.env.PORT, () => {

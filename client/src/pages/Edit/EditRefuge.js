@@ -84,7 +84,7 @@ const EditRefuge = () => {
                     </div>
                 </form>
             </div>
-            <div>
+            <div className="TPL_ADOPTION">
                 <h2>Liste des demandes d'adoption :</h2>
                 <ul className="liste_1">
                     {pets

@@ -49,21 +49,3 @@ export const deletePet = (petId) => {
             .catch((err) => console.log(err));
     };
 };
-
-export const createFormAdoption = (name, _id, uid) => {
-    return (dispatch) => {
-        return axios({
-            method: "post",
-            url: `${process.env.REACT_APP_API_URL}api/pet/formAdoption/`,
-            data: {
-                name: name,
-                _id: _id,
-                uid: uid
-            },
-        })
-            .then((res) => {
-                dispatch({ type: ADD_FORM_ADOPTION, payload: { name } });
-            })
-            .catch((err) => console.log(err));
-    };
-};
