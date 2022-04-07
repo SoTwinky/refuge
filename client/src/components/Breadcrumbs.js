@@ -5,15 +5,13 @@ import Link from '@material-ui/core/Link';
 
 export default function SimpleBreadcrumbs({options, pageName}) {
     return (
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs separator=">" aria-label="breadcrumb" id="ariane">
             <Link color="inherit" href="/">
                 Accueil
             </Link>
-            {options.items.map(({ to, label }) => {
+            {options.items.map(({to, label}) => {
                 return (
-                    <div key={to} className="some-custom-classname">
-                        <Link href={to}>{label}</Link>
-                    </div>
+                    <Link href={to} key={label}>{label}</Link>
                 );
             })}
             <Typography color="textPrimary">{pageName}</Typography>

@@ -45,7 +45,7 @@ const NewFormAdoption = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        dispatch(createFormAdoption(pet.name, _id, userData._id))
+        dispatch(createFormAdoption(userData.pseudo, _id, userData._id))
             .then(() => {
                 window.location.replace(`http://localhost:3000/pet/${_id}`)
             });
@@ -61,7 +61,7 @@ const NewFormAdoption = () => {
                         <h1>Demande d'adoption pour {_id}</h1>
                         <form
                             onSubmit={(e) => handleSubmit(e)} className="form-container-1">
-                            <input type="text" placeholder="Name" disabled="disabled" value={pet.name || ''}/>
+                            <input type="text" placeholder="Name" disabled="disabled" value={userData.pseudo || ''}/>
                             <input type="submit" value="Envoyer"/>
                         </form>
                     </div>

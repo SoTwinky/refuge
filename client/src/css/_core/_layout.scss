@@ -5,4 +5,13 @@
     margin: 0 auto;
     padding: 0 2rem;
     box-sizing: border-box;
+
+    &.admin, &.principal {
+        padding-top: 2.5rem;
+    }
+}
+
+ul {
+    margin: 0;
+    padding: 0;
 }

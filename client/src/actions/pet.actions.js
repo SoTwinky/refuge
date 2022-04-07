@@ -5,15 +5,21 @@ export const UPDATE_NAME = "UPDATE_NAME";
 export const DELETE_PET = "DELETE_PET";
 export const ADD_FORM_ADOPTION = "ADD_FORM_ADOPTION";
 
-export const createPet = (name, country) => {
+export const createPet = (name, eyeColor, color, age, weight, gender, picture, refuge, about) => {
     return (dispatch) => {
         return axios({
             method: "post",
             url: `${process.env.REACT_APP_API_URL}api/pet/`,
             data: {
                 name: name,
-                url: name.replace(/ /g,"_").toLowerCase(),
-                country: country
+                eyeColor: eyeColor,
+                color: color,
+                age: age,
+                weight: weight,
+                gender: gender,
+                picture: picture,
+                refuge: refuge,
+                about: about
             },
         })
             .then((res) => {
@@ -23,15 +29,24 @@ export const createPet = (name, country) => {
     };
 };
 
-export const updatePet = (petId, name, country) => {
+export const updatePet = (petId, name, eyeColor, color, age, weight, gender, picture, about) => {
     return (dispatch) => {
         return axios({
             method: "put",
             url: `${process.env.REACT_APP_API_URL}api/pet/update/${petId}`,
-            data: { name: name, country: country },
+            data: {
+                name: name,
+                eyeColor: eyeColor,
+                color: color,
+                age: age,
+                weight: weight,
+                gender: gender,
+                picture: picture,
+                about: about
+            },
         })
             .then((res) => {
-                dispatch({ type: UPDATE_NAME, payload: { name, country} });
+                dispatch({ type: UPDATE_NAME, payload: { name } });
             })
             .catch((err) => console.log(err));
     };

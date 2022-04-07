@@ -1,0 +1,50 @@
+#ariane {
+    background: #efefef;
+    display: inline-block;
+    padding: 0.5rem 2rem;
+    border-radius: 10px;
+    border: 2px solid #e3e3e3;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 2rem;
+
+    li {
+        a {
+            position: relative;
+            font-weight: 600;
+            color: #565656;
+            text-decoration: none;
+            transition: all 0.3s;
+
+            &::before {
+                content: '';
+                display: inline-block;
+                width: 0;
+                height: 2px;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                background: #565656;
+                transition: all 0.3s;
+            }
+
+            &:hover, &:focus {
+                &::before {
+                    width: 100%;
+                }
+            }
+        }
+
+        p {
+            color: grey;
+            font-style: italic;
+        }
+    }
+}
+
+.ariane {
+    margin-bottom: 2rem;
+
+    #ariane {
+        margin-bottom: 0;
+    }
+}

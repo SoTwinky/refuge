@@ -1,0 +1,66 @@
+.TPL_LISTE_ADOPTION {
+    .item {
+        margin-bottom: 1.5rem;
+
+        .itemInfo {
+            display: flex;
+            flex: 0 0 100%;
+            padding: 0 !important;
+
+            .image {
+                max-height: 150px;
+                flex-basis: 150px;
+
+                img {
+                    display: inline-block;
+                    width: 100%;
+                }
+            }
+
+            .texte {
+                display: flex;
+                flex: 0 0 #{calc(100% - 150px)};
+                justify-content: space-between;
+                padding: 0.5rem 0 0.5rem 2rem;
+                box-sizing: border-box;
+
+                & > div:first-child {
+                    display: flex;
+                    align-items: start;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    & > span {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .nb_adoption {
+                    margin: -0.5rem 0 -0.5rem -2rem;
+                    padding: 1rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+
+                    background: #17c7f7;
+                    color: #fff;
+                    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+
+                    max-width: 120px;
+                    width: 100%;
+                    box-sizing: border-box;
+
+                    & > span {
+                        margin-bottom: 0;
+                    }
+
+                    .big {
+                        font-size: 2.5rem;
+                        line-height: 2.8rem;
+                    }
+                }
+            }
+        }
+    }
+}

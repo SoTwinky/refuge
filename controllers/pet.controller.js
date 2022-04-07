@@ -38,9 +38,14 @@ module.exports.createPet = async (req, res) => {
 
     const newPet = new PetModel({
         name: req.body.name,
+        eyeColor: req.body.eyeColor,
         color: req.body.color,
         age: req.body.age,
-        gender: req.body.gender
+        weight: req.body.weight,
+        gender: req.body.gender,
+        picture: req.body.picture,
+        refuge: req.body.refuge,
+        about: req.body.about
     });
 
     try {

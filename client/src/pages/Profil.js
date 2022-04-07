@@ -39,7 +39,7 @@ const Profil = () => {
     });
 
     return (
-        <div className="innerCenter">
+        <div className="innerCenter admin">
             <div className="flexBetween">
                 <h1>Bonjour {userData.pseudo},</h1>
                 <ul>

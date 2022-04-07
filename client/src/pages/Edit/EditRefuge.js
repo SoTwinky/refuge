@@ -1,14 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {updateRefuge} from "../../actions/refuge.actions";
 import SimpleBreadcrumbs from "../../components/Breadcrumbs";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import DeleteRefuge from "../Delete/DeleteRefuge";
+import {UidContext} from "../../components/AppContext";
 
 const EditRefuge = () => {
     const {id} = useParams();
+    const uid = useContext(UidContext);
     const dispatch = useDispatch();
+    const [user, setUser] = useState([]);
     const [refuge, setRefuge] = useState("");
     const [pets, setPets] = useState([]);
     const [indexPets, setIndexPets] = useState(3);
@@ -20,9 +23,18 @@ const EditRefuge = () => {
     const options = {
         items: [
             {to: "/profil", label: "Profil"},
-            {to: "/super-admin", label: "Administrateur"}
+            {to: "/admin", label: "Administrateur"}
         ]
     };
+
+
+    useEffect(() => {
+        axios
+            .get('http://localhost:4000/api/user/' + uid)
+            .then((res) => {
+                setUser(res.data);
+            });
+    }, [uid]);
 
     useEffect(() => {
         axios
@@ -47,51 +59,61 @@ const EditRefuge = () => {
     };
 
     return (
-        <div className="innerCenter">
-            <SimpleBreadcrumbs options={options} pageName={pageName}/>
+        <div className="innerCenter admin">
             <h1>Bienvenue aux administateurs du refuge : {refuge.name}</h1>
-            <div>
+            <div className="flexBetween ariane">
+                <SimpleBreadcrumbs options={options} pageName={pageName}/>
+                <DeleteRefuge refuge={refuge}/>
+            </div>
+
+            {user.super_admin &&
+            <div className="TPL_FORM_GESTION_REFUGE">
                 <h2>Gestion des informations principales :</h2>
                 <form
                     onSubmit={(e) => handleEdit(e)}>
+                    <p>
+                        <label>Nom du refuge :</label>
+                        <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Name"
+                               type="text" id="" cols="30" rows="10" onChange={(e) => setEditedName(e.target.value)}
+                               autoFocus
+                               defaultValue={editedName ? editedName : refuge.name}/>
+                        {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
+                    </p>
+                    <p>
+                        <label>Url :</label>
+                        <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
+                               type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
+                               autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
 
-                    <label>Nom du refuge :</label>
-                    <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Name"
-                           type="text" id="" cols="30" rows="10" onChange={(e) => setEditedName(e.target.value)} autoFocus
-                           defaultValue={editedName ? editedName : refuge.name}/>
-                    {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
+                    </p>
+                    <p>
+                        <label>Pays :</label>
+                        <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
+                               type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
+                               autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
 
-                    <br/>
-                    <label>Url :</label>
-                    <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
-                           type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
-                           autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
+                    </p>
+                    <p>
+                        <label>Image :</label>
+                        <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
+                               type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
+                               autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
+                    </p>
 
-                    <br/>
-                    <label>Pays :</label>
-                    <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
-                           type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
-                           autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
-
-                    <br/>
-                    <label>Image :</label>
-                    <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Country"
-                           type="text" id="" cols="30" rows="10" onChange={(e) => setEditedCountry(e.target.value)}
-                           autoFocus defaultValue={editedCountry ? editedCountry : refuge.country}/>
-
-                    <div className="flexCenter">
-                        <DeleteRefuge refuge={refuge}/><input type="submit" value="Envoyer"/>
-                    </div>
+                    <input className="btn_send" type="submit" value="Envoyer"/>
                 </form>
             </div>
-            <div className="TPL_ADOPTION">
+            }
+            <div className="TPL_LISTE_ADOPTION">
                 <h2>Liste des demandes d'adoption :</h2>
                 <ul className="liste_1">
                     {pets
                         .filter((item) => {
-                            if(item.refuge === id) {
+                            if (item.refuge === id) {
                                 if (item.formAdoption.length > 0) {
                                     return item;
+                                } else {
+                                    return false;
                                 }
                             }
                         })
@@ -100,20 +122,29 @@ const EditRefuge = () => {
                         .map((item) => (
                             <li className="item" key={item._id}>
                                 <div className="itemInfo">
-                                    <h3>
-                                        <a href={"/super-admin/edit-pet/" + item._id}
-                                           key={item.name.id}>{item.name}</a>
-                                    </h3>
-                                    <span>Age: {item.age}</span><br/>
-                                    <span>Sexe: {item.gender}</span>
-                                    <span>Nombre de demandes d'adoption : {item.formAdoption.length}</span>
-                                    Au clic, il faut arriver sur une liste des formulaires d'infos + adoption
+                                    <div className="image">
+                                        <img src={item.picture} alt={item.name}/>
+                                    </div>
+                                    <div className="texte">
+                                        <div>
+                                            <h3>
+                                                <a href={"/super-admin/edit-pet/" + item._id}
+                                                   key={item.name.id}>{item.name}</a>
+                                            </h3>
+                                            <span>Age: {item.age}</span>
+                                            <span>Sexe: {item.gender}</span>
+                                        </div>
+                                        <div className="nb_adoption">
+                                            <span className="big">{item.formAdoption.length}</span>
+                                            <span>demande{item.formAdoption.length > 1 ? "s" : ""}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </li>
                         ))}
                 </ul>
             </div>
-            <div>
+            <div className="TPL_GESTION_ANIMAUX">
                 <h2>Gestion des animaux :</h2>
                 <ul>
                     <div id={'section_'} className="section-hidden">
@@ -126,12 +157,14 @@ const EditRefuge = () => {
                         <ul className="liste_4">
                             <li className="item first add_item">
                                 <div className="itemInfo">
-                                    <a href="/super-admin/new-pet"><span className="visuallyhidden">Ajouter</span></a>
+                                    <a href={'/super-admin/new-pet/' + id}>
+                                        <span className="visuallyhidden">Ajouter</span>
+                                    </a>
                                 </div>
                             </li>
                             {pets
                                 .filter((item) => {
-                                    if(item.refuge === id) {
+                                    if (item.refuge === id) {
                                         if (searchTermPets === "") {
                                             return item;
                                         } else if (item.name?.toLowerCase().includes(searchTermPets.toLowerCase())) {
@@ -160,7 +193,7 @@ const EditRefuge = () => {
                                 ))}
                         </ul>
                         {indexPets < pets.filter((item) => {
-                            if(item.refuge === id) {
+                            if (item.refuge === id) {
                                 if (searchTermPets === "") {
                                     return item;
                                 } else if (item.name?.toLowerCase().includes(searchTermPets.toLowerCase())) {

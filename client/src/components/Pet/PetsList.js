@@ -4,18 +4,32 @@ import axios from "axios";
 import PetItem from "./PetItem";
 
 const PetsList = () => {
-    const min = 0;
-    const max = 30;
+    const [min, setMin] = useState(0);
+    const [max, setMax] = useState(30);
     const [data, setData] = useState([]);
     const [rangeValueMin, setRangeValueMin] = useState(min);
     const [rangeValueMax, setRangeValueMax] = useState(max);
     const [selectedRadio, setSelectedRadio] = useState('');
-    const colors = ["white", "black", "brown"];
+    const [colors, setColors] = useState([]);
     const [selectedGender, setSelectedGender] = useState('');
     const genders = ["male", "female"];
     const minValRef = useRef(null);
     const maxValRef = useRef(null);
     const range = useRef(null);
+
+    useEffect(() => {
+        axios
+            .get(`http://localhost:4000/api/pet/`)
+            .then((res) => {
+                setData(res.data);
+                setColors([...new Set(res.data.map((pet) => pet.color))]);
+                setMin(Math.min.apply(null, res.data.map((pet) => pet.age)));
+                setMax(Math.max.apply(null, res.data.map((pet) => pet.age)));
+                setRangeValueMin(min);
+                setRangeValueMax(max);
+            });
+    }, [min, max]);
+
 
     // Convert to percentage
     const getPercent = useCallback(
@@ -47,15 +61,6 @@ const PetsList = () => {
             }
         }
     }, [rangeValueMax, getPercent]);
-
-
-    useEffect(() => {
-        axios
-            .get(`http://localhost:4000/api/pet/`)
-            .then((res) => {
-                setData(res.data);
-            });
-    }, []);
 
     return (
         <div className="pets">
@@ -102,7 +107,7 @@ const PetsList = () => {
                 <div>
                     <h2>Couleur :</h2>
                     <ul>
-                        {colors.map((color) => {
+                        {colors.filter(color => color !== '').map((color) => {
                             return (
                                 <li className="item" key={color}>
                                     <input type="radio" value={color} id={color} checked={color === selectedRadio}

@@ -42,6 +42,13 @@ const Admin = () => {
                             </li>
                         ))}
                 </ul>
+                {indexRefuges < refuge.filter((item) => {
+                    return item.admin_users?.some((admin) => admin === uid)
+                }).length &&
+                <div className="flexCenter">
+                    <button className="voirPlus" onClick={() => setIndexRefuges(indexRefuges + 8)}>Voir plus</button>
+                </div>
+                }
             </div>
         </div>
     );

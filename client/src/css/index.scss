@@ -1,21 +1,34 @@
 @import "./settings";
 @import "./profil";
+@import "../font-awesome/css/all.css";
 
-@import "./_core/header";
-@import "./_core/footer";
-@import "./_core/accroche";
-@import "./_core/layout.scss";
+/* CORE */
+@import "_core/header";
+@import "_core/footer";
+@import "_core/accroche";
+@import "_core/layout.scss";
+@import "_core/charte.scss";
 @import "_core/navigation";
-@import "./components/logo";
-@import "./components/filter";
-@import "./components/list";
-@import "./components/TPL";
+@import "_core/TPL";
+
+/* COMPONENTS */
+@import "components/logo";
+@import "components/filter";
+@import "components/list";
 @import "components/pets";
 @import "components/refuge";
 @import "components/header_super_admin";
-@import "./pages/news";
-@import "./components/article";
-@import "./components/section";
-@import "../font-awesome/css/all.css";
-@import "./components/form-container";
+@import "components/article";
+@import "components/section";
+@import "components/form-container";
+@import "components/ariane";
 
+/* PAGES */
+@import "./pages/news";
+
+
+/* TPL */
+@import "TPL/TPL_LISTE_ADOPTION";
+@import "TPL/TPL_FORM_GESTION_REFUGE";
+@import "TPL/TPL_PETS_REFUGE";
+@import "TPL/TPL_LISTE__ANIMAUX";

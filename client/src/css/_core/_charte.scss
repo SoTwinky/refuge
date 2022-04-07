@@ -1,0 +1,38 @@
+[class^="btn_"] {
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+    border-radius: 7px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn_delete {
+    max-width: 150px;
+    width: 100%;
+    background: red;
+    border: 2px solid red;
+    color: #fff;
+    transition: all 0.3s;
+
+    &:hover, &:focus {
+        background: #fff;
+        color: red;
+    }
+}
+
+.btn_send {
+    max-width: 150px;
+    width: 100%;
+    background: blue;
+    border: 2px solid blue;
+    color: #fff;
+    transition: all 0.3s;
+
+    &:hover, &:focus {
+        background: #fff;
+        color: blue;
+    }
+}

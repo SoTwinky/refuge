@@ -10,7 +10,7 @@ const DeleteRefuge = ({refuge}) => {
             .then(() => window.location.replace('http://localhost:3000/super-admin'));
     };
 
-    return <button onClick={() => {
+    return <button className="btn_delete" onClick={() => {
         if (window.confirm("Voulez-vous supprimer ?")) {
             handleDelete();
         }

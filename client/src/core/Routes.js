@@ -90,7 +90,7 @@ const Routes = ({uid}) => {
                     <Route exact path="/super-admin/new-refuge">
                         <NewRefuge/>
                     </Route>
-                    <Route exact path="/super-admin/new-pet">
+                    <Route exact path="/super-admin/new-pet/:id">
                         <NewPet/>
                     </Route>
                     <Route exact path="/super-admin/new-user">
