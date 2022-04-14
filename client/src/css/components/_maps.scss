@@ -1,0 +1,19 @@
+#maps {
+    & > div {
+        position: absolute;
+        width: #{calc(100vw - 9px)} !important;
+        left: #{calc(50% - 50vw)};
+        right: #{calc(50% - 50vw)};
+    }
+
+    .address {
+        position: absolute;
+        z-index: 10;
+        background: rgba(0,0,0,0.6);
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        bottom: 20px;
+        left: #{calc((50% - 50vw) + 40px)};
+        color: #fff;
+    }
+}

@@ -5,7 +5,6 @@ import axios from "axios";
 import {updatePet} from "../../actions/pet.actions";
 import {useDispatch} from "react-redux";
 import DeletePet from "../Delete/DeletePet";
-import DeleteRefuge from "../Delete/DeleteRefuge";
 
 const EditPet = () => {
     const {id} = useParams();
@@ -20,7 +19,6 @@ const EditPet = () => {
     const [gender, setGender] = useState(pet.gender);
     const [picture, setPicture] = useState(pet.picture);
     const [about, setAbout] = useState(pet.about);
-    const [error, setError] = useState(false);
     const pageName = 'Gestion des animaux';
     const options = {
         items: [
@@ -42,7 +40,7 @@ const EditPet = () => {
             .then((res) => {
                 setForm(res.data);
             });
-    }, []);
+    }, [id]);
 
     const handleEdit = () => {
         dispatch(updatePet(pet._id, name, eyeColor, color, age, weight, gender, picture, about))
@@ -68,10 +66,9 @@ const EditPet = () => {
                     onSubmit={(e) => handleEdit(e)}>
                     <p>
                         <label>Nom :</label>
-                        <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}} placeholder="Nestor"
+                        <input placeholder="Nestor"
                                type="text" id="" cols="30" rows="10" onChange={(e) => setName(e.target.value)}
                                defaultValue={name ? name : pet.name} required/>
-                        {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
                     </p>
                     <p>
                         <label>Couleur des yeux :</label>
@@ -129,6 +126,7 @@ const EditPet = () => {
                             if (item.pet_id === id) {
                                 return item;
                             }
+                            return false;
                         })
                         .sort((a, b) => b.id - a.id)
                         .slice(0, 100)

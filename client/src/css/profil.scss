@@ -93,11 +93,6 @@
 }
 
 .refuge_style {
-    padding: 30px 40px;
-    border-radius: 10px;
-    border: 2px solid #ef3842;
-    margin-bottom: 50px;
-
     .voirPlus {
         background: #ef3842;
         border: 2px solid #ef3842;
@@ -105,13 +100,18 @@
 }
 
 .user_style {
-    padding: 30px 40px;
-    border-radius: 10px;
-    border: 2px solid #3846ef;
-    margin-bottom: 50px;
-
     .voirPlus {
         background: #3846ef;
         border: 2px solid #3846ef;
+    }
+}
+
+.section-hidden {
+    padding: 30px 40px;
+    border-bottom: 2px solid #252525;
+    margin-bottom: 50px;
+
+    &:last-child {
+        border: 0;
     }
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import SimpleBreadcrumbs from "../../components/Breadcrumbs";
 import {useDispatch} from "react-redux";
 import { createRefuge } from "../../actions/refuge.actions";

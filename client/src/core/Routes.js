@@ -8,19 +8,20 @@ import News from "../pages/News";
 import Refuges from "../pages/Refuges/Refuges";
 import Refuge from "../pages/Refuges/Refuge";
 import Pet from "../pages/Pets/Pet";
-import Profil from "../pages/Profil";
+import Dashboard from "../pages/Dashboard";
 import Admin from "../pages/Admin";
 import Login from "../pages/Login";
 import Header from "./Header";
 import Footer from "./Footer";
 import SuperAdmin from "../pages/SuperAdmin";
-import PetsFavorites from "../pages/Profil/PetsFavorites";
+import PetsFavorites from "../pages/Dashboard/PetsFavorites";
 import NewPet from "../pages/New/NewPet";
 import NewRefuge from "../pages/New/NewRefuge";
 import NewUser from "../pages/New/NewUser";
 import EditRefuge from "../pages/Edit/EditRefuge";
 import EditPet from "../pages/Edit/EditPet";
 import EditUser from "../pages/Edit/EditUser";
+import Profil from "../pages/Profil";
 import NewFormAdoption from "../pages/New/NewFormAdoption";
 
 const Routes = ({uid}) => {
@@ -61,16 +62,19 @@ const Routes = ({uid}) => {
                     <Route exact path="/about">
                         <About/>
                     </Route>
+                    <Route exact path="/profil">
+                        <Profil/>
+                    </Route>
                     <Route exact path="/login">
                         {uid ? (
-                            <Redirect to="/profil"/>
+                            <Redirect to="/my-dashboard"/>
                         ) : (
                             <Login/>
                         )}
                     </Route>
-                    <Route exact path="/profil">
+                    <Route exact path="/my-dashboard">
                         {uid ? (
-                            <Profil/>
+                            <Dashboard/>
                         ) : (
                             <Redirect to="/login"/>
                         )}
@@ -87,19 +91,19 @@ const Routes = ({uid}) => {
                     <Route exact path="/super-admin">
                         <SuperAdmin/>
                     </Route>
+                    <Route exact path="/admin/new-pet/:id">
+                        <NewPet/>
+                    </Route>
                     <Route exact path="/super-admin/new-refuge">
                         <NewRefuge/>
-                    </Route>
-                    <Route exact path="/super-admin/new-pet/:id">
-                        <NewPet/>
                     </Route>
                     <Route exact path="/super-admin/new-user">
                         <NewUser/>
                     </Route>
-                    <Route exact path="/super-admin/edit-refuge/:id">
+                    <Route exact path="/admin/edit-refuge/:id">
                         <EditRefuge/>
                     </Route>
-                    <Route exact path="/super-admin/edit-pet/:id">
+                    <Route exact path="/admin/edit-pet/:id">
                         <EditPet/>
                     </Route>
                     <Route exact path="/super-admin/edit-user/:id">

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import RefugeItem from "./RefugeItem";
+import MapsCurrentLocation from "../Maps/MapsCurrentLocation";
 
 const RefugesList = () => {
     const [data, setData] = useState([]);
@@ -39,6 +40,9 @@ const RefugesList = () => {
                         })}
                     </ul>
                 </div>
+            </div>
+            <div className="maps">
+                <MapsCurrentLocation />
             </div>
             {(selectedCountry) &&
             <div className="cancel">

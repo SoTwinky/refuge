@@ -1,9 +1,8 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {createFormAdoption} from "../../actions/formAdoption.actions";
 import axios from "axios";
 import {useParams} from "react-router-dom";
-import {UidContext} from "../../components/AppContext";
 
 const NewFormAdoption = () => {
     const {_id} = useParams();
@@ -38,9 +37,10 @@ const NewFormAdoption = () => {
                     setFormExist(true)
                 }
             }
+            return false;
         });
 
-    }, [_id, userData._id]);
+    }, [_id, userData._id, form]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -67,7 +67,7 @@ const NewFormAdoption = () => {
                     </div>
                     :
                     <div>
-                        <h2>Vous avez déjà une demande en cours !</h2>
+                        <h2>Vous avez déjà une demande en cours pour {pet.name} !</h2>
                     </div>
             }
         </div>

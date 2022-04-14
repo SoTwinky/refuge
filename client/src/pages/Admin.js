@@ -1,11 +1,18 @@
 import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import {UidContext} from "../components/AppContext";
+import SimpleBreadcrumbs from "../components/Breadcrumbs";
 
 const Admin = () => {
     const [refuge, setRefuge] = useState([]);
     const [indexRefuges, setIndexRefuges] = useState(3);
     const uid = useContext(UidContext);
+    const pageName = 'Administration des refuges';
+    const options = {
+        items: [
+            {to: "/my-dashboard", label: "Tableau de bord"},
+        ]
+    };
 
     useEffect(() => {
         axios
@@ -18,7 +25,8 @@ const Admin = () => {
     console.log(refuge.map((item) => { return item.admin_users?.map((admin, index) => admin[index] === '61d0b36baa9460582d0aea7f')}));
 
     return (
-        <div className="innerCenter" id="admin">
+        <div className="innerCenter admin" id="admin">
+            <SimpleBreadcrumbs options={options} pageName={pageName}/>
             <div className="mBot">
                 <h2>Gestion de vos refuges :</h2>
                 <ul className="liste_2 ul_slider liste_refuge">
@@ -35,7 +43,7 @@ const Admin = () => {
                                 </div>
                                 <div className="itemInfo">
                                     <h3>
-                                        <a href={"/super-admin/edit-refuge/" + item._id}
+                                        <a href={"/admin/edit-refuge/" + item._id}
                                            key={item.name.id}>{item.name}</a>
                                     </h3>
                                 </div>

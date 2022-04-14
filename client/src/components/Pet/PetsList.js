@@ -148,8 +148,8 @@ const PetsList = () => {
                     .filter((pet) => pet.age >= rangeValueMin)
                     .filter((pet) => pet.age <= rangeValueMax)
                     .sort((a, b) => a.age - b.age)
-                    .map((pet) => (
-                        <PetItem pet={pet} key={pet.name}/>
+                    .map((pet, key) => (
+                        <PetItem pet={pet} key={key}/>
                     ))}
             </ul>
         </div>

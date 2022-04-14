@@ -2,10 +2,10 @@ import React, {useContext, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {updateRefuge} from "../../actions/refuge.actions";
 import SimpleBreadcrumbs from "../../components/Breadcrumbs";
+import {UidContext} from "../../components/AppContext";
 import {useParams} from "react-router-dom";
 import axios from "axios";
 import DeleteRefuge from "../Delete/DeleteRefuge";
-import {UidContext} from "../../components/AppContext";
 
 const EditRefuge = () => {
     const {id} = useParams();
@@ -22,19 +22,10 @@ const EditRefuge = () => {
     const pageName = 'Éditer le refuge';
     const options = {
         items: [
-            {to: "/profil", label: "Profil"},
+            {to: "/my-dashboard", label: "Tableau de bord"},
             {to: "/admin", label: "Administrateur"}
         ]
     };
-
-
-    useEffect(() => {
-        axios
-            .get('http://localhost:4000/api/user/' + uid)
-            .then((res) => {
-                setUser(res.data);
-            });
-    }, [uid]);
 
     useEffect(() => {
         axios
@@ -43,19 +34,31 @@ const EditRefuge = () => {
 
         axios
             .get('http://localhost:4000/api/pet')
-            .then((res) => {
-                setPets(res.data);
-            });
+            .then((res) => setPets(res.data));
 
-    }, []);
+    }, [id]);
+
+    useEffect(() => {
+        if(uid !== null) {
+            axios
+                .get('http://localhost:4000/api/user/' + uid)
+                .then((res) => setUser(res.data))
+                .catch(error => console.log({error}));
+        }
+    }, [uid]);
 
     const handleEdit = () => {
         let name = editedName ? editedName : refuge.name;
         let country = editedCountry ? editedCountry : refuge.country;
-        dispatch(updateRefuge(refuge._id, name, country))
-            .then(() => {
-                window.location.replace(`http://localhost:3000/refuge/` + name.replace(/ /g, "_").toLowerCase())
-            });
+
+        if (refuge.name.length > 150) {
+            setError(true);
+        } else {
+            dispatch(updateRefuge(refuge._id, name, country))
+                .then(() => {
+                    window.location.replace(`http://localhost:3000/refuge/` + name.replace(/ /g, "_").toLowerCase())
+                });
+        }
     };
 
     return (
@@ -112,10 +115,9 @@ const EditRefuge = () => {
                             if (item.refuge === id) {
                                 if (item.formAdoption.length > 0) {
                                     return item;
-                                } else {
-                                    return false;
                                 }
                             }
+                            return false;
                         })
                         .sort((a, b) => b.id - a.id)
                         .slice(0, 100)
@@ -157,7 +159,7 @@ const EditRefuge = () => {
                         <ul className="liste_4">
                             <li className="item first add_item">
                                 <div className="itemInfo">
-                                    <a href={'/super-admin/new-pet/' + id}>
+                                    <a href={'/admin/new-pet/' + id}>
                                         <span className="visuallyhidden">Ajouter</span>
                                     </a>
                                 </div>
@@ -183,7 +185,7 @@ const EditRefuge = () => {
                                         </div>
                                         <div className="itemInfo">
                                             <h3>
-                                                <a href={"/super-admin/edit-pet/" + item._id}
+                                                <a href={"/admin/edit-pet/" + item._id}
                                                    key={item.name.id}>{item.name}</a>
                                             </h3>
                                             <span>Age: {item.age}</span><br/>

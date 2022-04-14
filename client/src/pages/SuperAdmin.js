@@ -11,6 +11,12 @@ const SuperAdmin = () => {
     const [searchTermRefuges, setSearchTermRefuges] = useState('');
     const [searchTermUsers, setSearchTermUsers] = useState('');
     let id = 1;
+    const pageName = 'Super Administrateur';
+    const options = {
+        items: [
+            {to: "/my-dashboard", label: "Tableau de bord"}
+        ]
+    };
 
     useEffect(() => {
         axios
@@ -32,18 +38,8 @@ const SuperAdmin = () => {
         $('#section_' + (i + 1)).show();
     });
 
-    //BREADCRUMBS
-
-    const options = {
-        items: [
-            {to: "/profil", label: "Profil"}
-        ]
-    };
-
-    const pageName = 'Super Administrateur';
-
     return (
-        <div className="innerCenter">
+        <div className="innerCenter admin">
             <SimpleBreadcrumbs options={options} pageName={pageName}/>
             <ul id="header_super_admin" className="liste_2 ul_slider">
                 <li>
@@ -74,6 +70,7 @@ const SuperAdmin = () => {
                             } else if (item.name?.toLowerCase().includes(searchTermRefuges.toLowerCase())) {
                                 return item;
                             }
+                            return false;
                         })
                         .sort((a, b) => b.id - a.id)
                         .slice(0, indexRefuges)
@@ -100,6 +97,7 @@ const SuperAdmin = () => {
                     } else if (item.name?.toLowerCase().includes(searchTermRefuges.toLowerCase())) {
                         return item;
                     }
+                    return false;
                 }).length &&
                 <div className="flexCenter">
                     <button className="voirPlus" onClick={() => setIndexRefuges(indexRefuges + 8)}>Voir plus</button>
@@ -128,6 +126,7 @@ const SuperAdmin = () => {
                             } else if (item.pseudo?.toLowerCase().includes(searchTermUsers.toLowerCase())) {
                                 return item;
                             }
+                            return false;
                         })
                         .sort((a, b) => b.id - a.id)
                         .slice(0, indexUsers)
@@ -151,6 +150,7 @@ const SuperAdmin = () => {
                     } else if (item.pseudo?.toLowerCase().includes(searchTermUsers.toLowerCase())) {
                         return item;
                     }
+                    return false;
                 }).length &&
                 <div className="flexCenter">
                     <button className="voirPlus" onClick={() => setIndexUsers(indexUsers + 8)}>Voir plus</button>

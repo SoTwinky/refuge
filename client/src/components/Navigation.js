@@ -31,7 +31,7 @@ const Navigation = () => {
             </li>
             <li>
                 {uid ? (
-                    <NavLink exact to="/profil" className="profil" activeClassName="nav-active">
+                    <NavLink exact to="/my-dashboard" className="profil" activeClassName="nav-active">
                         <span>{userData.pseudo}</span>
                     </NavLink>
                 ) : (
