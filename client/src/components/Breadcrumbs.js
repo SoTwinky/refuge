@@ -6,8 +6,8 @@ import Link from '@material-ui/core/Link';
 export default function SimpleBreadcrumbs({options, pageName}) {
     return (
         <Breadcrumbs separator=">" aria-label="breadcrumb" id="ariane">
-            <Link color="inherit" href="/">
-                Accueil
+            <Link color="inherit" href="/my-dashboard">
+                Tableau de bord
             </Link>
             {options.items.map(({to, label}) => {
                 return (

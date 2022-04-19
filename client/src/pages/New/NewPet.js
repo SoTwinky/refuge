@@ -21,7 +21,6 @@ const NewPet = () => {
     const pageName = 'Nouvel animal';
     const options = {
         items: [
-            {to: "/my-dashboard", label: "Tableau de bord"},
             {to: "/admin", label: "Administrateur"},
             {to: "/admin/edit-refuge/" + refugeId.id, label: refuge.name}
         ]

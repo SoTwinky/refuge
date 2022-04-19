@@ -12,6 +12,35 @@ const app = express();
 const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const cors = require('cors');
 
+//Stripe
+const stripe = require("stripe")("sk_test_51KqM5dJFBabTcxIbqcWZMAejKxrz6rgS2zlhZ8E2q0zDufPW9uLpcwociAiIXehmJ9KHXPOhwLMNBPMUcOWeLo9h00SbObm9Te");
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.post("/payment", cors(), async (req, res) => {
+    let { amount, id } = req.body;
+    try {
+        const payment = await stripe.paymentIntents.create({
+            amount,
+            currency: "USD",
+            description: "Spatula company",
+            payment_method: id,
+            confirm: true
+        });
+        console.log("Payment", payment);
+        res.json({
+            message: "Payment successful",
+            success: true
+        });
+    } catch (error) {
+        console.log("Error", error);
+        res.json({
+            message: "Payment failed",
+            success: false
+        });
+    }
+});
+
 //Cookie
 app.use(cookieParser());
 

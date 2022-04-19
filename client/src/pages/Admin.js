@@ -10,7 +10,7 @@ const Admin = () => {
     const pageName = 'Administration des refuges';
     const options = {
         items: [
-            {to: "/my-dashboard", label: "Tableau de bord"},
+
         ]
     };
 

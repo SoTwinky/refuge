@@ -5,10 +5,12 @@ import News from "../News";
 import Slider from "react-slick";
 import FollowHandler from "../../components/FollowHandler";
 import FormAdoption from "../../components/Pet/FormAdoption";
+import StripeContainer from "../../components/Payment/StripeContainer";
 
 const Pet = () => {
     const {_id} = useParams();
     const [data, setData] = useState([]);
+    const [showItem, setShowItem] = useState(false);
 
     useEffect(() => {
         axios
@@ -41,6 +43,14 @@ const Pet = () => {
                         <p>Poids
                             : {data.weight} {(data.weight > 1 ? 'kilos' : 'kilo')}</p>
                         <FollowHandler idToFollow={_id}/>
+                        {showItem ? (
+                            <StripeContainer />
+                        ) : (
+                            <div>
+                                <h3>$10.00</h3>
+                                <button onClick={() => setShowItem(true)}>Purchase Spatula</button>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <div className="image">

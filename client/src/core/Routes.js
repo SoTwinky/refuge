@@ -23,6 +23,7 @@ import EditPet from "../pages/Edit/EditPet";
 import EditUser from "../pages/Edit/EditUser";
 import Profil from "../pages/Profil";
 import NewFormAdoption from "../pages/New/NewFormAdoption";
+import Parameters from "../pages/Edit/Parameters";
 
 const Routes = ({uid}) => {
 
@@ -102,6 +103,9 @@ const Routes = ({uid}) => {
                     </Route>
                     <Route exact path="/admin/edit-refuge/:id">
                         <EditRefuge/>
+                    </Route>
+                    <Route exact path="/admin/edit-refuge/:id/parameters">
+                        <Parameters/>
                     </Route>
                     <Route exact path="/admin/edit-pet/:id">
                         <EditPet/>

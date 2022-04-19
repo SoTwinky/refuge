@@ -7,7 +7,6 @@ const Profil = () => {
     const pageName = 'Mon profil';
     const options = {
         items: [
-            {to: "/my-dashboard", label: "Tableau de bord"},
         ]
     };
 
