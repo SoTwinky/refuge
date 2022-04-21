@@ -18,7 +18,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.post("/payment", cors(), async (req, res) => {
-    let { amount, id } = req.body;
+    const { amount, id } = req.body;
     try {
         const payment = await stripe.paymentIntents.create({
             amount,
@@ -40,6 +40,42 @@ app.post("/payment", cors(), async (req, res) => {
         });
     }
 });
+
+app.post('/subscription', cors(), async (req, res) => {
+    const {email, id} = req.body;
+    try {
+        const customer = await stripe.customers.create({
+            email: email,
+            payment_method: id,
+            invoice_settings: {
+                default_payment_method: id,
+            },
+        });
+
+        const subscription = await stripe.subscriptions.create({
+            customer: customer.id,
+            items: [{ price: 'price_1KqllZJFBabTcxIbD7E1ecjt' }],
+            expand: ['latest_invoice.payment_intent']
+        });
+
+        const status = subscription['latest_invoice']['payment_intent']['status'];
+        const client_secret = subscription['latest_invoice']['payment_intent']['client_secret'];
+
+        res.json({
+            client_secret: client_secret,
+            status: status,
+            message: "Payment successful",
+            success: true
+        });
+
+    } catch (error) {
+        res.json({
+            message: "Payment failed",
+            success: false
+        });
+    }
+});
+
 
 //Cookie
 app.use(cookieParser());

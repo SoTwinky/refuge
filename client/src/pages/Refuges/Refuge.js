@@ -3,10 +3,12 @@ import {useParams} from 'react-router-dom';
 import axios from "axios";
 import PetsRefuge from "../../components/PetsRefuge";
 import Maps from "../../components/Maps/Maps";
+import StripeContainer from "../../components/Payment/StripeContainer";
 
 const Refuge = () => {
     const {_id} = useParams();
     const [data, setData] = useState([]);
+    const [showItem, setShowItem] = useState(false);
 
     useEffect(() => {
         axios
@@ -28,6 +30,14 @@ const Refuge = () => {
                             <h1>Url : {data.url}</h1>
                             <h1>Refuge : {data.name}</h1>
                             <button>Subscribe FB</button>
+                            {showItem ? (
+                                <StripeContainer />
+                            ) : (
+                                <div>
+                                    <h3>$10.00</h3>
+                                    <button onClick={() => setShowItem(true)}>Purchase Spatula</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

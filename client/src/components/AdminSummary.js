@@ -16,10 +16,10 @@ const AdminSummary = () => {
                     </ul>
                 </li>
                 <li className="withChild">
-                    <a href="/">Gestion des animaux</a>
+                    <a href={"/admin/edit-refuge/" + id + "/management-pets"}>Gestion des animaux</a>
                     <ul className="niv2">
-                        <li><a href="/">Demandes d'adoption</a></li>
-                        <li><a href="/">Gérer les fiches</a></li>
+                        <li><a href={"/admin/edit-refuge/" + id + "/management-pets#adoption"}>Demandes d'adoption</a></li>
+                        <li><a href={"/admin/edit-refuge/" + id + "/management-pets#gestion"}>Gérer les animaux</a></li>
                     </ul>
                 </li>
                 <li><a href={"/admin/edit-refuge/" + id + "/parameters"}>Paramètres</a></li>

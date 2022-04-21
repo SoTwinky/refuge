@@ -63,8 +63,8 @@ const News = ({petId}) => {
                     commentsData
                         .filter((comment) => (petId === comment.pet))
                         .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-                        .map((comment) => (
-                            <Article key={comment.id} comment={comment} idPet={petId} uid={uid}/>
+                        .map((comment, index) => (
+                            <Article key={index} comment={comment} idPet={petId} uid={uid}/>
                         ))
                 }
 

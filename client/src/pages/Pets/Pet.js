@@ -44,7 +44,7 @@ const Pet = () => {
                             : {data.weight} {(data.weight > 1 ? 'kilos' : 'kilo')}</p>
                         <FollowHandler idToFollow={_id}/>
                         {showItem ? (
-                            <StripeContainer />
+                            <StripeContainer recurrent={true}/>
                         ) : (
                             <div>
                                 <h3>$10.00</h3>
