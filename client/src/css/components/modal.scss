@@ -1,0 +1,40 @@
+.modalSubscription, .modalPayment {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 9;
+    @include tr;
+
+    &.open {
+        bottom: 0;
+    }
+
+    &.close {
+        bottom: 100%;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .form-pay {
+        display: block;
+        width: 600px;
+        padding: 50px;
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #242424;
+        box-shadow: 0 0 35px inset rgba(0,0,0,0.4);
+
+        .btn-modal-close {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            transform: #{translateY(calc(100%
+            + 20px))};
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js"
 import axios from "axios"
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -22,11 +22,16 @@ const CARD_OPTIONS = {
     }
 };
 
-export default function SubscriptionForm() {
+export default function SubscriptionForm({showItem}) {
+    const [showItemBtn, setShowItemBtn] = useState(showItem);
     const [email, setEmail] = useState('');
     const [success, setSuccess] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
+
+    useEffect(() => {
+        setShowItemBtn(showItem);
+    }, [showItem]);
 
     const handleSubmitSub = async (e) => {
         e.preventDefault();
@@ -73,26 +78,31 @@ export default function SubscriptionForm() {
     };
 
     return (
-        <>
+        <div className={"modalSubscription " + (showItemBtn ? 'open' : 'close')}>
             {!success ?
-                <form onSubmit={handleSubmitSub}>
-                    <fieldset className="FormGroup">
-                        <p>
-                            <label htmlFor="subscription_email">Email</label>
-                            <input id="subscription_email" type="email" onChange={(e) => setEmail(e.target.value)}/>
-                        </p>
-                        <div className="FormRow">
-                            <span>Paiement</span>
-                            <CardElement options={CARD_OPTIONS}/>
+                <div className="form-pay">
+                    <form onSubmit={handleSubmitSub}>
+                        <fieldset className="FormGroup">
+                            <p>
+                                <label htmlFor="subscription_email">Email</label>
+                                <input id="subscription_email" type="email" onChange={(e) => setEmail(e.target.value)}/>
+                            </p>
+                            <div className="FormRow">
+                                <span>Paiement</span>
+                                <CardElement options={CARD_OPTIONS}/>
+                            </div>
+                        </fieldset>
+                        <div className="flexCenter">
+                            <button className="btn-modal-payment">Payer</button>
                         </div>
-                    </fieldset>
-                    <button>Pay</button>
-                </form>
+                    </form>
+                    <button className="btn-modal-close" onClick={() => setShowItemBtn(false)}>Abandonner</button>
+                </div>
                 :
                 <div>
                     <h2>You just bought a sweet spatula congrats this is the best decision of you're life</h2>
                 </div>
             }
-        </>
+        </div>
     );
 }

@@ -1,0 +1,22 @@
+.btn-modal-close {
+    background: #ff1414;
+    color: #fff;
+    border: 2px solid #fff;
+    @include tr;
+
+    &:hover, &:focus {
+        background: #ff3a3a;
+    }
+}
+
+.btn-modal-payment {
+    background: #3a9934;
+    color: #fff;
+    border: 2px solid #fff;
+    text-shadow: 0 0 2px rgba(0,0,0,0.6);
+    @include tr;
+
+    &:hover, &:focus {
+        background: #ff3a3a;
+    }
+}

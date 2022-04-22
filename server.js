@@ -8,15 +8,16 @@ const refugeRoutes = require('./routes/refuge.routes');
 const pageRoutes = require('./routes/page.routes');
 const commentRoutes = require('./routes/comment.routes');
 const formAdoptionRoutes = require('./routes/formAdoption.routes');
+const paymentRoutes = require('./routes/payment.routes');
 const app = express();
 const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const cors = require('cors');
-
-//Stripe
-const stripe = require("stripe")("sk_test_51KqM5dJFBabTcxIbqcWZMAejKxrz6rgS2zlhZ8E2q0zDufPW9uLpcwociAiIXehmJ9KHXPOhwLMNBPMUcOWeLo9h00SbObm9Te");
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+//Stripe
+const stripe = require("stripe")("sk_test_51KqM5dJFBabTcxIbqcWZMAejKxrz6rgS2zlhZ8E2q0zDufPW9uLpcwociAiIXehmJ9KHXPOhwLMNBPMUcOWeLo9h00SbObm9Te");
 app.post("/payment", cors(), async (req, res) => {
     const { amount, id } = req.body;
     try {
@@ -110,6 +111,7 @@ app.use('/api/refuge', refugeRoutes);
 app.use('/api/page', pageRoutes);
 app.use('/api/comment', commentRoutes);
 app.use('/api/formAdoption', formAdoptionRoutes);
+app.use('/api/payment', paymentRoutes);
 
 //server
 app.listen(process.env.PORT, () => {

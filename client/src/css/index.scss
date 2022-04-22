@@ -10,6 +10,7 @@
 @import "_core/charte.scss";
 @import "_core/navigation";
 @import "_core/TPL";
+@import "_core/btn";
 
 /* COMPONENTS */
 @import "components/logo";
@@ -24,6 +25,8 @@
 @import "components/ariane";
 @import "components/maps";
 @import "components/flexPage";
+@import "components/modal";
+@import "components/stats";
 
 /* PAGES */
 @import "./pages/news";

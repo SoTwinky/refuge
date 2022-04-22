@@ -10,7 +10,16 @@ import StripeContainer from "../../components/Payment/StripeContainer";
 const Pet = () => {
     const {_id} = useParams();
     const [data, setData] = useState([]);
+    const [btn, setBtn] = useState(false);
     const [showItem, setShowItem] = useState(false);
+
+    useEffect(() => {
+        if (btn) {
+            if (!showItem) {
+                setShowItem(!showItem);
+            }
+        }
+    }, [showItem]);
 
     useEffect(() => {
         axios
@@ -43,14 +52,11 @@ const Pet = () => {
                         <p>Poids
                             : {data.weight} {(data.weight > 1 ? 'kilos' : 'kilo')}</p>
                         <FollowHandler idToFollow={_id}/>
-                        {showItem ? (
-                            <StripeContainer recurrent={true}/>
-                        ) : (
-                            <div>
-                                <h3>$10.00</h3>
-                                <button onClick={() => setShowItem(true)}>Purchase Spatula</button>
-                            </div>
-                        )}
+                        <div>
+                            <h3>$10.00</h3>
+                            <button onClick={() => {setShowItem(!showItem); setBtn(true);}}>Je deviens parrain !</button>
+                        </div>
+                        <StripeContainer showItem={showItem} amount="1200" refuge={data.refuge} recurrent={true}/>
                     </div>
                 </div>
                 <div className="image">
@@ -74,7 +80,8 @@ const Pet = () => {
                     <p>J'ai été retrouvé au refuge</p>
                 </div>
                 <FormAdoption/>
-                <div className="MISENAVANT_QUESTION"><span>Vous souhaitez m'adopter ?</span><a href={/newFormAdoption/ + data._id}>Déposer un dossier pour moi !</a></div>
+                <div className="MISENAVANT_QUESTION"><span>Vous souhaitez m'adopter ?</span><a
+                    href={/newFormAdoption/ + data._id}>Déposer un dossier pour moi !</a></div>
                 <News petId={_id}/>
             </div>
         </div>

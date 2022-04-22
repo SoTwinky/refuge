@@ -1,0 +1,41 @@
+.TPL_STATS {
+    display: flex;
+
+    .column {
+        flex: #{calc(100% / 12)};
+        text-align: center;
+
+        .month {
+            width: 100%;
+            border: 1px solid grey;
+            box-sizing: border-box;
+        }
+
+        .containerStats {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            height: 150px;
+
+            & > span:first-child {
+                width: 100%;
+                border: 1px solid grey;
+                box-sizing: border-box;
+
+            }
+        }
+    }
+}
+
+@for $i from 1 through 100 {
+    .n#{$i} {
+        $value: ($i * 1%);
+        height: $value;
+        background: red;
+    }
+}
+
+.n100 {
+background: red;
+
+}

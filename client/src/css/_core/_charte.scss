@@ -1,4 +1,4 @@
-[class^="btn_"] {
+[class^="btn-"] {
     padding: 0.5rem 1rem;
     box-sizing: border-box;
     border-radius: 7px;
@@ -9,7 +9,7 @@
     cursor: pointer;
 }
 
-.btn_delete {
+.btn-delete {
     max-width: 150px;
     width: 100%;
     background: red;
@@ -23,7 +23,7 @@
     }
 }
 
-.btn_send {
+.btn-send {
     max-width: 150px;
     width: 100%;
     background: blue;

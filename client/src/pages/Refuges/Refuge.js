@@ -8,7 +8,16 @@ import StripeContainer from "../../components/Payment/StripeContainer";
 const Refuge = () => {
     const {_id} = useParams();
     const [data, setData] = useState([]);
+    const [btn, setBtn] = useState(false);
     const [showItem, setShowItem] = useState(false);
+
+    useEffect(() => {
+        if (btn) {
+            if (!showItem) {
+                setShowItem(!showItem);
+            }
+        }
+    }, [showItem]);
 
     useEffect(() => {
         axios
@@ -30,14 +39,11 @@ const Refuge = () => {
                             <h1>Url : {data.url}</h1>
                             <h1>Refuge : {data.name}</h1>
                             <button>Subscribe FB</button>
-                            {showItem ? (
-                                <StripeContainer />
-                            ) : (
-                                <div>
-                                    <h3>$10.00</h3>
-                                    <button onClick={() => setShowItem(true)}>Purchase Spatula</button>
-                                </div>
-                            )}
+                            <div>
+                                <h3>$10.00</h3>
+                                <button onClick={() => {setShowItem(!showItem); setBtn(true)}}>Je fais un don !</button>
+                            </div>
+                            <StripeContainer showItem={showItem} amount="1200" refuge={_id}/>
                         </div>
                     </div>
                 </div>

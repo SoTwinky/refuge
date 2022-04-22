@@ -1,6 +1,8 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import axios from "axios"
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
+import {createPayment} from "../../actions/payment.actions";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const CARD_OPTIONS = {
@@ -23,11 +25,17 @@ const CARD_OPTIONS = {
     }
 };
 
-export default function PaymentForm() {
+export default function PaymentForm({showItem, amount, refuge}) {
+    const [showItemBtn, setShowItemBtn] = useState(showItem);
+    const userData = useSelector((state) => state.userReducer);
     const [success, setSuccess ] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        setShowItemBtn(showItem);
+    }, [showItem]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,13 +48,16 @@ export default function PaymentForm() {
             try {
                 const {id} = paymentMethod;
                 const response = await axios.post("http://localhost:4000/payment", {
-                    amount: 1200,
+                    amount: amount,
                     id
                 });
 
                 if(response.data.success) {
-                    console.log("Successful payment");
                     setSuccess(true);
+                    dispatch(createPayment(amount, refuge, userData._id))
+                        .then(() => {
+                            window.location.replace(`http://localhost:3000/refuge/${refuge}`)
+                        });
                 }
 
             } catch (error) {
@@ -58,23 +69,27 @@ export default function PaymentForm() {
     };
 
     return (
-        <>
+        <div className={"modalPayment " + (showItemBtn ? 'open' : 'close')}>
             {!success ?
-                <form onSubmit={handleSubmit}>
-                    <fieldset className="FormGroup">
-                        <div className="FormRow">
-                            <span>Paiement</span>
-                            <CardElement options={CARD_OPTIONS}/>
+                <div className="form-pay">
+                    <form onSubmit={handleSubmit}>
+                        <fieldset className="FormGroup">
+                            <div className="FormRow">
+                                <span>Paiement</span>
+                                <CardElement options={CARD_OPTIONS}/>
+                            </div>
+                        </fieldset>
+                        <div className="flexCenter">
+                            <button>Payer</button>
                         </div>
-                    </fieldset>
-                    <button>Pay</button>
-                </form>
+                    </form>
+                    <button onClick={() => setShowItemBtn(false)}>Fermer</button>
+                </div>
                 :
                 <div>
                     <h2>You just bought a sweet spatula congrats this is the best decision of you're life</h2>
                 </div>
             }
-
-        </>
+        </div>
     )
 }

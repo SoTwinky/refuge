@@ -23,7 +23,9 @@ import EditPet from "../pages/Edit/EditPet";
 import EditUser from "../pages/Edit/EditUser";
 import Profil from "../pages/Profil";
 import NewFormAdoption from "../pages/New/NewFormAdoption";
-import Parameters from "../pages/Edit/Parameters";
+import Parameters from "../pages/Admin/Parameters";
+import ListFormAdoption from "../pages/Admin/ListFormAdoption";
+import ManagePets from "../pages/Admin/ManagePets";
 
 const Routes = ({uid}) => {
 
@@ -107,7 +109,13 @@ const Routes = ({uid}) => {
                     <Route exact path="/admin/edit-refuge/:id/parameters">
                         <Parameters/>
                     </Route>
-                    <Route exact path="/admin/edit-pet/:id">
+                    <Route exact path="/admin/edit-refuge/:id/list-form-adoption">
+                        <ListFormAdoption/>
+                    </Route>
+                    <Route exact path="/admin/edit-refuge/:id/manage-pets">
+                        <ManagePets/>
+                    </Route>
+                    <Route exact path="/admin/edit-pet/:id/:idPet">
                         <EditPet/>
                     </Route>
                     <Route exact path="/super-admin/edit-user/:id">
