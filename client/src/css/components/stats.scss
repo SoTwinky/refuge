@@ -29,13 +29,8 @@
 
 @for $i from 1 through 100 {
     .n#{$i} {
-        $value: ($i * 1%);
+        $value: calc((#{$i} * 1%) + 27px);
         height: $value;
         background: red;
     }
-}
-
-.n100 {
-background: red;
-
 }
