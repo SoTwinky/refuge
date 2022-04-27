@@ -56,7 +56,7 @@ const Pet = () => {
                             <h3>$10.00</h3>
                             <button onClick={() => {setShowItem(!showItem); setBtn(true);}}>Je deviens parrain !</button>
                         </div>
-                        <StripeContainer showItem={showItem} amount="1200" refuge={data.refuge} recurrent={true}/>
+                        <StripeContainer showItem={showItem} pet={_id} refuge={data.refuge} recurrent={true}/>
                     </div>
                 </div>
                 <div className="image">

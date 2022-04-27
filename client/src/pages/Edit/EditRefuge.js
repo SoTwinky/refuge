@@ -15,7 +15,7 @@ const EditRefuge = () => {
     const [pets, setPets] = useState([]);
     const [indexPets, setIndexPets] = useState(3);
     const [searchTermPets, setSearchTermPets] = useState('');
-    const [amount, setAmount] = useState('');
+    const [subscriptions, setSubscriptions] = useState('');
     const pageName = 'Éditer : ' + refuge.name;
     const options = {
         items: [
@@ -37,27 +37,52 @@ const EditRefuge = () => {
             .get('http://localhost:4000/api/payment/' + id)
             .then((res) => setDonations(res.data));
 
+        axios
+            .get('http://localhost:4000/api/subscription/' + id)
+            .then((res) => setSubscriptions(res.data));
+
     }, [id]);
 
-    const maxVal = [];
+    const maxValPayment = [],
+        maxValSubscription = [];
 
     {
         donations && month.map((item) => {
-            maxVal.push(donations.filter((donation) => {
+            maxValPayment.push(donations.filter((donation) => {
                 if (new Date(donation.updatedAt).toLocaleString('en-GB', {month: 'long'}) === item) {
                     return item;
                 }
             }).map(function (donation) {
                 return Math.floor(donation.amount);
             }).reduce((amount, donation) => {
-
                 return amount + donation
             }, 0))
         })
     }
 
-    const oMaxVal = 100 / Math.max.apply(null, maxVal);
-    console.log(oMaxVal);
+    {
+        subscriptions && month.map((item) => {
+            maxValSubscription.push(subscriptions.filter((subscription) => {
+                if (new Date(subscription.updatedAt).toLocaleString('en-GB', {month: 'long'}) === item) {
+                    return item;
+                }
+            }).map(function (subscription) {
+                return Math.floor(subscription.amount);
+            }).reduce((amount, subscription) => {
+                return amount + subscription
+            }, 0))
+        })
+    }
+
+    const oMaxValPayment = 100 / Math.max.apply(null, maxValPayment);
+    const oMaxValSubscription = 100 / Math.max.apply(null, maxValSubscription);
+    const totalSubscription = subscriptions && (subscriptions
+        .map(function (subscription) {
+            return Math.floor(subscription.amount);
+        }).reduce((amount, subscription) => {
+            return amount + subscription
+        }, 0) / 100);
+
     return (
         <div className="flexPage">
             <div className="w400px">
@@ -76,19 +101,8 @@ const EditRefuge = () => {
                                 return (
                                     <div className="column" key={i}>
                                         <div className="containerStats">
-                                            <span className={donations && "n" + donations.filter((donation) => {
-                                                if (new Date(donation.updatedAt).toLocaleString('en-GB', {month: 'long'}) === item) {
-                                                    return item;
-                                                }
-                                            }).map(function (donation) {
-                                                return Math.floor(donation.amount);
-                                            }).reduce((amount, donation) => {
-                                                return amount + donation
-                                            }, 0) * oMaxVal}>
-                                                {donations && new Intl.NumberFormat("fr-FR", {
-                                                    style: "currency",
-                                                    currency: "EUR"
-                                                }).format(donations.filter((donation) => {
+                                            <span
+                                                className={donations && "n" + parseInt(donations.filter((donation) => {
                                                     if (new Date(donation.updatedAt).toLocaleString('en-GB', {month: 'long'}) === item) {
                                                         return item;
                                                     }
@@ -96,6 +110,68 @@ const EditRefuge = () => {
                                                     return Math.floor(donation.amount);
                                                 }).reduce((amount, donation) => {
                                                     return amount + donation
+                                                }, 0) * oMaxValPayment)}>
+                                                {donations && new Intl.NumberFormat("fr-FR", {
+                                                    style: "currency",
+                                                    currency: "EUR"
+                                                }).format(donations.filter((donation) => {
+                                                    const date = new Date(donation.updatedAt);
+                                                    if (date.toLocaleString('en-GB', {
+                                                        month: 'long',
+                                                        year: 'numeric'
+                                                    }) === item + ' ' + new Date().getFullYear()) {
+                                                        return item;
+                                                    }
+                                                    return false;
+                                                }).map(function (donation) {
+                                                    return Math.floor(donation.amount);
+                                                }).reduce((amount, donation) => {
+                                                    return amount + donation
+                                                }, 0) / 100)}
+                                            </span>
+                                        </div>
+                                        <div className="month">{item.substring(0, 3)}.</div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+                    <div className="TPL_COMPTEUR">
+                        <p>Prévisionnel du gain des abonnements / mensuel : {totalSubscription} €</p>
+                    </div>
+                    <div className="TPL_ABONNEMENTS">
+                        <h2>Montant des nouveaux abonnements</h2>
+                        <div className="TPL_STATS">
+                            {month.map((item, i) => {
+                                return (
+                                    <div className="column" key={i}>
+                                        <div className="containerStats">
+                                            <span
+                                                className={subscriptions && "n" + parseInt(subscriptions.filter((subscription) => {
+                                                    if (new Date(subscription.updatedAt).toLocaleString('en-GB', {month: 'long'}) === item) {
+                                                        return item;
+                                                    }
+                                                }).map(function (subscription) {
+                                                    return Math.floor(subscription.amount);
+                                                }).reduce((amount, subscription) => {
+                                                    return amount + subscription
+                                                }, 0) * oMaxValSubscription)}>
+                                                {subscriptions && new Intl.NumberFormat("fr-FR", {
+                                                    style: "currency",
+                                                    currency: "EUR"
+                                                }).format(subscriptions.filter((subscription) => {
+                                                    const date = new Date(subscription.updatedAt);
+                                                    if (date.toLocaleString('en-GB', {
+                                                        month: 'long',
+                                                        year: 'numeric'
+                                                    }) === item + ' ' + new Date().getFullYear()) {
+                                                        return item;
+                                                    }
+                                                    return false;
+                                                }).map(function (subscription) {
+                                                    return Math.floor(subscription.amount);
+                                                }).reduce((amount, subscription) => {
+                                                    return amount + subscription
                                                 }, 0) / 100)}
                                             </span>
                                         </div>

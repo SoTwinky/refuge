@@ -1,6 +1,8 @@
 import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js"
 import axios from "axios"
 import React, {useEffect, useState} from 'react'
+import {createSubscription} from "../../actions/subscription.actions";
+import {useDispatch, useSelector} from "react-redux";
 
 const CARD_OPTIONS = {
     iconStyle: "solid",
@@ -22,12 +24,15 @@ const CARD_OPTIONS = {
     }
 };
 
-export default function SubscriptionForm({showItem}) {
+export default function SubscriptionForm({showItem, pet, refuge}) {
     const [showItemBtn, setShowItemBtn] = useState(showItem);
     const [email, setEmail] = useState('');
+    const [amount, setAmount] = useState(2000);
     const [success, setSuccess] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
+    const dispatch = useDispatch();
+    const userData = useSelector((state) => state.userReducer);
 
     useEffect(() => {
         setShowItemBtn(showItem);
@@ -47,8 +52,8 @@ export default function SubscriptionForm({showItem}) {
             try {
                 const {id} = paymentMethod;
                 const response = await axios.post("http://localhost:4000/subscription", {
-                    amount: 1200,
                     email: email,
+                    amount: Number(amount),
                     id
                 });
 
@@ -60,14 +65,18 @@ export default function SubscriptionForm({showItem}) {
                             return false;
                         } else {
                             setSuccess(true);
-                            console.log("Successful payment 1");
                         }
                     });
                 }
 
                 if (response.data.success) {
-                    console.log("Successful payment")
+                    dispatch(createSubscription(amount, pet, userData._id, refuge))
+                        .then(() => {
+                            window.location.replace(`http://localhost:3000/pet/${pet}`)
+                        });
                     setSuccess(true);
+                } else {
+                    console.log("Error payment" + amount);
                 }
             } catch (error) {
                 console.log("Error", error)
@@ -87,6 +96,21 @@ export default function SubscriptionForm({showItem}) {
                                 <label htmlFor="subscription_email">Email</label>
                                 <input id="subscription_email" type="email" onChange={(e) => setEmail(e.target.value)}/>
                             </p>
+
+                            <div onChange={(e) => setAmount(e.target.value)}>
+                                <input type="radio" id="amount_15" name="amount" value="1500"/>
+                                <label htmlFor="amount_15">15€ par mois</label>
+
+                                <input type="radio" id="amount_20" name="amount" value="2000" defaultChecked/>
+                                <label htmlFor="amount_20">20€ par mois</label>
+
+                                <input type="radio" id="amount_25" name="amount" value="2500"/>
+                                <label htmlFor="amount_25">25€ par mois</label>
+                                <input type="radio" id="amount_50" name="amount" value="5000"/>
+                                <label htmlFor="amount_50">50€ par mois</label>
+                                <input type="radio" id="amount_100" name="amount" value="10000"/>
+                                <label htmlFor="amount_100">100€ par mois</label>
+                            </div>
                             <div className="FormRow">
                                 <span>Paiement</span>
                                 <CardElement options={CARD_OPTIONS}/>

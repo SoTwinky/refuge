@@ -25,8 +25,9 @@ const CARD_OPTIONS = {
     }
 };
 
-export default function PaymentForm({showItem, amount, refuge}) {
+export default function PaymentForm({showItem, refuge}) {
     const [showItemBtn, setShowItemBtn] = useState(showItem);
+    const [amount, setAmount] = useState('');
     const userData = useSelector((state) => state.userReducer);
     const [success, setSuccess ] = useState(false);
     const stripe = useStripe();
@@ -73,6 +74,10 @@ export default function PaymentForm({showItem, amount, refuge}) {
             {!success ?
                 <div className="form-pay">
                     <form onSubmit={handleSubmit}>
+                        <fieldset>
+                            <label htmlFor="amount">Montant</label>
+                            <input type="number" id="amount" placeholder="15€" step="0.01" min="2" onChange={(e) => setAmount(e.target.value * 100)}/>
+                        </fieldset>
                         <fieldset className="FormGroup">
                             <div className="FormRow">
                                 <span>Paiement</span>

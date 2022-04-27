@@ -8,7 +8,7 @@ const PUBLIC_KEY = "pk_test_51KqM5dJFBabTcxIb0soeLUdLD2VmYwJqBIAnRT8Eea3SmkHiZKb
 
 const stripeTestPromise = loadStripe(PUBLIC_KEY);
 
-export default function StripeContainer({recurrent, showItem, amount, refuge}) {
+export default function StripeContainer({recurrent, showItem, refuge, pet}) {
     const [subscription, setSubscription] = useState(false);
 
     useEffect(() => {
@@ -19,9 +19,9 @@ export default function StripeContainer({recurrent, showItem, amount, refuge}) {
         <Elements stripe={stripeTestPromise}>
             {subscription
                 ?
-                <SubscriptionForm showItem={showItem}/>
+                <SubscriptionForm showItem={showItem} pet={pet} refuge={refuge}/>
                 :
-                <PaymentForm showItem={showItem} amount={amount} refuge={refuge}/>
+                <PaymentForm showItem={showItem} refuge={refuge}/>
             }
         </Elements>
     )
