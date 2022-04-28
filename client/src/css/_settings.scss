@@ -29,6 +29,14 @@
     right: #{calc(50% - 50vw)};
 }
 
+.flexColumn {
+    flex-direction: column;
+}
+
+.flexEnd {
+    justify-content: flex-end;
+}
+
 .relative {
     position: relative;
     margin-right: #{calc((50% - 50vw) + 50px)};
@@ -49,6 +57,29 @@
     padding: 0;
     position: absolute;
     width: 1px;
+}
+
+@mixin underline_before($line) {
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: inline-block;
+        height: 2px;
+        width: 0;
+        background: $line;
+        opacity: 0.3;
+        border-radius: 50px;
+        transition: all 0.3s;
+    }
+
+    &:hover, &:focus {
+        &::before {
+            width: #{calc(100% - 10px)};
+        }
+    }
 }
 
 .visuallyhidden {

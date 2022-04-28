@@ -1,22 +1,75 @@
-.btn-modal-close {
-    background: #ff1414;
-    color: #fff;
-    border: 2px solid #fff;
-    @include tr;
-
-    &:hover, &:focus {
-        background: #ff3a3a;
+body #document #corps [class*="TPL_FORM"] {
+    [class^="btn-"] {
+        position: relative;
+        padding: 0.5rem 1rem;
+        box-sizing: border-box;
+        border-radius: 7px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        text-align: center;
+        cursor: pointer;
     }
-}
 
-.btn-modal-payment {
-    background: #3a9934;
-    color: #fff;
-    border: 2px solid #fff;
-    text-shadow: 0 0 2px rgba(0,0,0,0.6);
-    @include tr;
+    .btn-modal-close {
+        background: #ff1414;
+        color: #fff;
+        border: 2px solid #fff;
+        @include tr;
 
-    &:hover, &:focus {
-        background: #ff3a3a;
+        &:hover, &:focus {
+            background: #ff3a3a;
+        }
+    }
+
+    .btn-modal-payment {
+        background: #3a9934;
+        color: #fff;
+        border: 2px solid #fff;
+        text-shadow: 0 0 2px rgba(0,0,0,0.6);
+        @include tr;
+
+        &:hover, &:focus {
+            background: #ff3a3a;
+        }
+    }
+
+    .btn-back {
+        display: inline-block;
+        padding: 0;
+        margin-right: 2rem;
+
+        @include underline_before(#282c34);
+    }
+
+    .btn-delete {
+        max-width: 150px;
+        width: 100%;
+        background: red;
+        border: 2px solid red;
+        color: #fff;
+        transition: all 0.3s;
+
+        &:hover, &:focus {
+            background: #fff;
+            color: red;
+        }
+    }
+
+    .btn-send {
+        max-width: 150px;
+        width: 100%;
+        background: #39a0e6;
+        border: 2px solid #39a0e6;
+        color: #fff;
+        text-shadow: 0 0 1px rgba(0,0,0,0.7);
+        border-radius: 30px;
+        transition: all 0.3s;
+
+        &:hover, &:focus {
+            background: #fff;
+            color: #39a0e6;
+            text-shadow: 0 0 1px transparent;
+        }
     }
 }

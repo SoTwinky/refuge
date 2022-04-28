@@ -5,44 +5,99 @@
 }
 
 [class*="TPL_FORM"] {
-    background: #ebebeb;
-    padding: 2rem 5rem;
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 1rem 2.5rem;
     box-sizing: border-box;
-    border: 2px solid #dbdbdb;
+    border: 2px solid #ededed;
     border-radius: 0.75rem;
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
+
+    & > h2 {
+        margin: 0 0 1rem;
+    }
+
+    .section {
+        position: relative;
+        padding: 2rem 0;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -2.5rem;
+            right: -2.5rem;
+            display: inline-block;
+            border-bottom: 1px solid #ededed;
+        }
+
+        :last-child &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -2.5rem;
+            right: -2.5rem;
+            display: inline-block;
+            border-bottom: 1px solid #ededed;
+        }
+    }
+
+    input, textarea {
+        background: linear-gradient(to bottom right, #f4f4f4, #f3f5f7);
+        border: 1px solid #d3d3d3;
+    }
+
+    textarea {
+        min-height: 7rem;
+    }
+
+    .flexRow {
+        .title {
+            flex-basis: 250px;
+            line-height: 2.4rem;
+            font-weight: 600;
+            color: #343434;
+            padding-right: 3rem;
+        }
+
+        .flexColumn {
+            flex: #{0 0 calc(100% - 250px)};
+            p {
+                display: flex;
+                flex-direction: column;
+                margin: 0 0 1rem;
+            }
+        }
+
+        &.flexEnd {
+            align-items: center;
+        }
+    }
 
     form {
         max-width: 770px;
         margin: 0 auto;
 
-        p, div {
+        div {
             display: flex;
 
             label:not(.radio), .label {
-                display: flex;
-                align-items: flex-start;
-                justify-content: flex-end;
-                flex-basis: 200px;
-                padding: 5px 25px;
-                box-sizing: border-box;
                 line-height: 2.4rem;
-                font-weight: 600;
                 color: #343434;
             }
 
             input[type="text"], textarea {
-                border: 1px solid rgba(139, 139, 139, 1) !important;
-                flex: 0 0 #{calc(100% - 300px)};
-                padding: 1rem 1.5rem;
+                padding: 0.75rem 1.5rem;
                 box-sizing: border-box;
                 border-radius: 5px;
-                box-shadow: 0 0 10px inset rgba(0,0,0,0.1);
             }
 
             input[type="file"] {
                 display: flex;
                 align-items: center;
-                line-height: 3rem;
+                padding: 0.6rem 1rem 0.5rem;
+                border-radius: 5px;
             }
 
             &.radio {
@@ -63,8 +118,8 @@
             }
         }
 
-        .btn_send {
-            margin-left: 200px;
+        .btnContainer {
+            padding: 1rem 0 0;
         }
     }
 

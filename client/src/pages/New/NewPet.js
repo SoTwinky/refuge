@@ -102,61 +102,79 @@ const NewPet = () => {
                     <h1>Nouvel animal</h1>
                     <SimpleBreadcrumbs options={options} pageName={pageName}/>
                     <div className="TPL_FORM_NEW_PET">
-                        <h2>Informations sur l'animal :</h2>
+                        <h2>Création d'une fiche</h2>
                         <form
                             onSubmit={(e) => handleSubmit(e)}>
-                            <p>
-                                <label>Nom :</label>
-                                <input style={{border: error ? "1px solid red" : "1px solid #61dafb"}}
-                                       placeholder="Nestor"
-                                       type="text" id="" cols="30" rows="10" onChange={(e) => setName(e.target.value)}/>
-                                {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
-                            </p>
-                            <p>
-                                <label>Couleur des yeux :</label>
-                                <input placeholder="Bleu"
-                                       type="text" id="" cols="30" rows="10"
-                                       onChange={(e) => setEyeColor(e.target.value)}/>
-                            </p>
-                            <p>
-                                <label>Couleur :</label>
-                                <input placeholder="Brun"
-                                       type="text" id="" cols="30" rows="10"
-                                       onChange={(e) => setColor(e.target.value)}/>
-                            </p>
-                            <p>
-                                <label>Age :</label>
-                                <input placeholder="12 ans"
-                                       type="text" id="" cols="30" rows="10" onChange={(e) => setAge(e.target.value)}/>
-                            </p>
-                            <p>
-                                <label>Poids :</label>
-                                <input placeholder="30 kilos"
-                                       type="text" id="" cols="30" rows="10"
-                                       onChange={(e) => setWeight(e.target.value)}/>
-                            </p>
-                            <div className="radio">
-                                <span className="label">Sexe :</span>
-                                <div onChange={(e) => setGender(e.target.value)}>
-                                    <input type="radio" id="Masculin" name="sexe" value="Masculin" defaultChecked/>
-                                    <label htmlFor="Masculin" className="radio">Masculin</label>
-                                    <input type="radio" id="Feminin" name="sexe" value="Feminin"/>
-                                    <label htmlFor="Feminin" className="radio">Feminin</label>
+                            <div className="section flexRow">
+                                <div className="title">Informations principales</div>
+                                <div className="flexColumn">
+                                    <p>
+                                        <label>Nom :</label>
+                                        <input style={{border: error && "1px solid red"}}
+                                               placeholder="Nestor"
+                                               type="text" id="" cols="30" rows="10"
+                                               onChange={(e) => setName(e.target.value)}/>
+                                        {error && <p>Veuillez écrire un maximum de 140 caractères</p>}
+                                    </p>
+                                    <p>
+                                        <label htmlFor="avatar">Image :</label>
+                                        <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
+                                               onChange={(e) => setPicture(e.target.value)}/>
+                                    </p>
+                                    <p>
+                                        <label>Age :</label>
+                                        <input placeholder="12 ans"
+                                               type="text" id="" cols="30" rows="10"
+                                               onChange={(e) => setAge(e.target.value)}/>
+                                    </p>
+                                    <p>
+                                        <label>Poids :</label>
+                                        <input placeholder="30 kilos"
+                                               type="text" id="" cols="30" rows="10"
+                                               onChange={(e) => setWeight(e.target.value)}/>
+                                    </p>
+                                    <p>
+                                        <div className="radio">
+                                            <span className="label">Sexe :</span>
+                                            <div onChange={(e) => setGender(e.target.value)}>
+                                                <input type="radio" id="Masculin" name="sexe" value="Masculin"
+                                                       defaultChecked/>
+                                                <label htmlFor="Masculin" className="radio">Masculin</label>
+                                                <input type="radio" id="Feminin" name="sexe" value="Feminin"/>
+                                                <label htmlFor="Feminin" className="radio">Feminin</label>
+                                            </div>
+                                        </div>
+                                    </p>
                                 </div>
                             </div>
-                            <p>
-                                <label htmlFor="avatar">Image :</label>
-                                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
-                                       onChange={(e) => setPicture(e.target.value)}/>
-                            </p>
-                            <p>
-                                <label htmlFor="aPropos">À propos :</label>
-                                <textarea placeholder="Je suis au refuge depuis..."
-                                          type="text" id="aPropos" name="aPropos"
-                                          onChange={(e) => setAbout(e.target.value)}/>
-                            </p>
-
-                            <input className="btn_send" type="submit" value="Envoyer"/>
+                            <div className="section flexRow">
+                                <div className="title">Optionnel</div>
+                                <div className="flexColumn">
+                                    <p>
+                                        <label>Couleur des yeux :</label>
+                                        <input placeholder="Bleu"
+                                               type="text" id="" cols="30" rows="10"
+                                               onChange={(e) => setEyeColor(e.target.value)}/>
+                                    </p>
+                                    <p>
+                                        <label>Couleur :</label>
+                                        <input placeholder="Brun"
+                                               type="text" id="" cols="30" rows="10"
+                                               onChange={(e) => setColor(e.target.value)}/>
+                                    </p>
+                                    <p>
+                                        <label htmlFor="aPropos">À propos :</label>
+                                        <textarea placeholder="Je suis au refuge depuis..."
+                                                  type="text" id="aPropos" name="aPropos"
+                                                  onChange={(e) => setAbout(e.target.value)}/>
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="btnContainer flexRow flexEnd">
+                                <a href={"http://localhost:3000/super-admin/edit-refuge/" + refuge.id}
+                                   className="btn-back">Revenir au menu</a>
+                                <input className="btn-send" type="submit" value="Envoyer"/>
+                            </div>
                         </form>
                     </div>
                 </div>
