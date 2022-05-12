@@ -10,6 +10,7 @@ const commentRoutes = require('./routes/comment.routes');
 const formAdoptionRoutes = require('./routes/formAdoption.routes');
 const paymentRoutes = require('./routes/payment.routes');
 const subscriptionRoutes = require('./routes/subscription.routes');
+const tplRoutes = require('./routes/tpl.routes');
 const app = express();
 const {checkUser, requireAuth} = require('./middleware/auth.middleware');
 const cors = require('cors');
@@ -129,6 +130,16 @@ app.use('/api/comment', commentRoutes);
 app.use('/api/formAdoption', formAdoptionRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/subscription', subscriptionRoutes);
+
+//TPL
+
+const TPL = ['ACCUEIL'];
+
+TPL.map((item) => {
+    app.use('/api/TPL_' + item, tplRoutes);
+});
+
+//tpl/TPL_NOM → req.params.name → tpl model soit avec differents model soit differents schemas dans un model
 
 //server
 app.listen(process.env.PORT, () => {

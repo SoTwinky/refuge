@@ -2,9 +2,11 @@ import PetItem from "../components/Pet/PetItem";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import RefugeItem from "../components/Refuge/RefugeItem";
+import Slider from "react-slick";
 
 const Home = () => {
     const [pets, setPets] = useState([]);
+    const [dataTplAccueil, setDataTplAccueil] = useState([]);
     const [refuges, setRefuges] = useState([]);
     useEffect(() => {
         axios
@@ -18,9 +20,42 @@ const Home = () => {
             .then((res) => {
                 setRefuges(res.data);
             });
+
+        axios
+            .get('http://localhost:4000/api/TPL/TPL_ACCUEIL')
+            .then((res) => {
+                setDataTplAccueil(res.data);
+            });
     }, []);
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false
+    };
     return (
         <div className="innerCenter">
+            <div className="TPL_ACCUEIL">
+                <div className="slick">
+                    {dataTplAccueil
+                        &&
+                        <Slider {...settings}>
+                            {dataTplAccueil.map((item, i) => {
+                                return (
+                                    <div key={i} style={"background-url:" + item.image}>
+                                        <h2>{item.title}</h2>
+                                        <p>{item.resume}</p>
+                                        <a href={item.btn_url}>{item.btn_name}</a>
+                                    </div>
+                                )
+                            })}
+                        </Slider>
+                    }
+                </div>
+            </div>
             <div>
                 <h2>Adopter un animal</h2>
                 <ul className="liste_4">
@@ -34,7 +69,8 @@ const Home = () => {
             </div>
             <div>
                 <h2>Un organisme certifié</h2>
-                <p>Tous nos refuges sont vérifiés et approuvés par nos équipes pour vous assurer le bon déroulement dans vos recherches et un vrai suivi lors de vos adoptions.</p>
+                <p>Tous nos refuges sont vérifiés et approuvés par nos équipes pour vous assurer le bon déroulement dans
+                    vos recherches et un vrai suivi lors de vos adoptions.</p>
             </div>
             <div className="MISENAVANT_ORANGE">
                 <h2>Participer à un projet</h2>

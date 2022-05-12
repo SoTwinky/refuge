@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const subscriptionController = require('../controllers/subscription.controller');
 
-// Payment
 // Subscription
 router.get('/', subscriptionController.getAllSubscription);
 router.post('/', subscriptionController.createSubscription);
